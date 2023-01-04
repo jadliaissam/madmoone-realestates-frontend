@@ -5,6 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { UserLayoutRoutingModule } from './user-layout.routing';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LightboxModule } from 'ngx-lightbox';
 
 
 
@@ -16,6 +18,8 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
   imports: [
     CommonModule,
     RouterModule,
+    LightboxModule,
+    NgbModule,
     UserLayoutRoutingModule,
     SharedModule
   ]

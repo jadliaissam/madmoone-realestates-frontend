@@ -8028,3 +8028,24 @@
     width: 32px;
     height: 32px;
   }/*# sourceMappingURL=styles.css.map */
+
+
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+     color: #4032ea;
+    border-color: #4031ea;
+  }
+
+  .nav-tabs .nav-link{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0.25rem solid transparent;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    color: inherit;
+    min-width: 120px;
+    text-align: center;
+  }
+  .tab-content > .active {
+    margin-top: 1rem;
+}
