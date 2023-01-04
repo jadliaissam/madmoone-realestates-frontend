@@ -1,0 +1,7 @@
+
+#map, #mapDetailProject {
+    height: 400px;
+    &.no-map{
+      height: 0;
+    }
+  }

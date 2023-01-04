@@ -12,113 +12,25 @@
         <div class="pswp-gallery mb20" id="my-gallery">
           <div class="gallery-in-first">
             <div
-              *ngFor="let image of _albums | slice : 0 : 5 ; let i = index"
-              class="gallery__item--{{i+1}}"
-              [ngClass]="{ 'gallery-in-first__more': i === 4 && _albums.length > 5, 'border-radius-8' : i === 0 }"
+              *ngFor="let image of _albums | slice : 0 : 5; let i = index"
+              class="gallery__item--{{ i + 1 }}"
+              [ngClass]="{
+                'gallery-in-first__more': i === 4 && _albums.length > 5,
+                'border-radius-8': i === 0
+              }"
             >
               <img [src]="image.thumb" class="gallery__img" (click)="open(i)" />
               <span
-              *ngIf="i === 4 && _albums.length > 5"
-              (click)="open(i)"
+                *ngIf="i === 4 && _albums.length > 5"
+                (click)="open(i)"
                 class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
                 style="z-index: 1"
-                ><span class="pe-1">{{_albums.length - 4}}</span
+                ><span class="pe-1">{{ _albums.length - 4 }}</span
                 ><span class="d-none d-sm-inline">autres photos</span></span
               >
             </div>
           </div>
         </div>
-        <!-- ====== START gallery ====== -->
-        <!-- <div class="pswp-gallery mb20" id="my-gallery">
-          <div class="gallery-in-first">
-            <a
-              href="/assets/img/products/gallery1.png"
-              class="border-radius-8 gallery__item--1"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery1.png"
-                class="gallery__img"
-                alt=""
-              />
-            </a>
-            <a
-              href="/assets/img/products/gallery2.png"
-              class="gallery__item--2"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery2.png"
-                class="gallery__img"
-                alt=""
-              />
-            </a>
-            <a
-              href="/assets/img/products/gallery3.png"
-              class="gallery__item--3"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery3.png"
-                class="gallery__img"
-                alt=""
-              />
-            </a>
-            <a
-              href="/assets/img/products/gallery4.png"
-              class="gallery__item--4"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery4.png"
-                class="gallery__img"
-                alt=""
-              />
-            </a>
-            <a
-              href="/assets/img/products/gallery5.png"
-              class="gallery__item--5 gallery-in-first__more"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery5.png"
-                class="gallery__img"
-                alt=""
-              />
-              <span
-                class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
-                style="z-index: 1"
-                ><span class="pe-1">23</span
-                ><span class="d-none d-sm-inline">autres photos</span></span
-              >
-            </a>
-          </div>
-          <div class="d-none">
-            <a
-              href="/assets/img/products/gallery6.png"
-              class="gallery__item--6"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery6.png"
-                class="gallery__img"
-                alt=""
-              />
-            </a>
-            <a
-              href="/assets/img/products/gallery6.png"
-              class="gallery__item--7"
-              data-fancybox="main-gallery"
-            >
-              <img
-                src="/assets/img/products/gallery6.png"
-                class="gallery__img"
-                alt=""
-              />
-            </a>
-          </div>
-        </div> -->
-        <!-- ====== END gallery ====== -->
         <div class="d-flex align-items-center mb-3">
           <img
             src="/assets/img/products/promoteur.png"
@@ -129,15 +41,22 @@
             <h4 class="font-poppins-700 font-16 color-grey">
               sun square almaz
             </h4>
-            <h5 class="font-poppins-400 font-14 color-grey2">23 Vues</h5>
+            <!-- <h5 class="font-poppins-400 font-14 color-grey2">23 Vues</h5> -->
           </div>
         </div>
-        <ul ngbNav #nav="ngbNav" class="nav-tabs border-0">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs border-0" [destroyOnHide]="false">
           <li [ngbNavItem]="1">
             <a ngbNavLink>Accueil</a>
             <ng-template ngbNavContent>
               <div class="mb-3">
-                <img src="/assets/img/maps/map_detail_project.png" alt="" />
+                <div
+                class="project-map border-radius-8"
+                id="map"
+              ></div>
+              <!-- [ngClass]="{
+                'no-map':
+                  (!project?.longitude || !project?.latitude) && !loading
+              }" -->
               </div>
               <div
                 class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
