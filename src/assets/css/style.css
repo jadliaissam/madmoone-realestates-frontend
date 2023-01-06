@@ -4445,9 +4445,9 @@
   
   .wrapperProjects__new:after {
     background: url("../img/icons/projects.svg") no-repeat scroll;
-    width: 8.75rem;
     height: 8.75rem;
     background-size: 80%;
+    top: -20px;
   }
   
   .wrapperSuccess, .wrapperWarning, .wrapperSuccessInfo, .wrapperSuccessDone {

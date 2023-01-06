@@ -1,0 +1,12 @@
+<div class="position-relative w-100" *ngIf="loading">
+    <ngx-spinner
+      type="ball-clip-rotate-multiple"
+      bdColor="rgba(244,247,254,0.6)"
+      color="#546080"
+      size="default"
+      class="madmoone-spinner"
+      [ngStyle]="{'height' :  height}"
+      [ngClass]="{'default-height' : !height}"
+      [fullScreen]="false"
+    ></ngx-spinner>
+  </div>

@@ -1,5 +1,6 @@
 import { Observable, Subscriber } from 'rxjs';
 import * as L from 'leaflet';
+import { environment } from 'src/environments/environment';
 
 export const icon = L.icon({
   iconUrl: './assets/img/marker.svg',
@@ -26,3 +27,11 @@ export const LAYER = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z=
   id: 'mapbox/streets-v11',
 })
 
+
+export function getApiBaseUrl() {
+  return environment.apiBaseUrl;
+}
+
+export function getApiMediaUrl() {
+  return environment.apiMediaUrl;
+}
