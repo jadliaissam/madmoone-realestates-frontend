@@ -14,7 +14,7 @@ export interface IProjectUnit {
     salons?: number;
     restRooms ?: number;
     area?: number;
-    parking?: number;
+    parking?: string;
     direction?: string;
     _v?: number;
 }
