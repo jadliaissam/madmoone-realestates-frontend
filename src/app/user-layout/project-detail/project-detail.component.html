@@ -310,7 +310,7 @@
                             >
                               <div>
                                 <h2 class="price__main">
-                                  {{ unit.priceMin }} MAD
+                                  {{ unit.priceMin | currency : 'MAD'}}
                                 </h2>
                               </div>
                             </div>
@@ -398,7 +398,7 @@
                           <a
                             href="#"
                             class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                            >Plus de details</a
+                            >Voir les biens dans cette unite</a
                           >
                         </div>
                       </div>
@@ -410,7 +410,7 @@
                     Voir plus de biens
                   </button>
                 </div>
-                <ul
+                <!-- <ul
                   class="d-flex shareInNetwork justify-content-center flex-wrap"
                 >
                   <li>
@@ -439,7 +439,8 @@
                       >network</a
                     >
                   </li>
-                </ul>
+                </ul> -->
+                <app-share-network></app-share-network>
               </ng-template>
             </li>
             <li [ngbNavItem]="2">

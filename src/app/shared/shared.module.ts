@@ -8,6 +8,9 @@ import { EmptyStateV2Component } from './empty-state-v2/empty-state-v2.component
 import { ImagePreloadDirective } from './image-preload.directive';
 import { LazyImgDirective } from './lazy-loading.directive';
 import { SafeHtmlPipe } from './all.pipe';
+import { ShareNetworkComponent } from './share-network/share-network.component';
+import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
+import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { SafeHtmlPipe } from './all.pipe';
     EmptyStateV2Component,
     ImagePreloadDirective,
     LazyImgDirective,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ShareNetworkComponent
   ],
   exports: [
     HeaderComponent,
@@ -27,8 +31,9 @@ import { SafeHtmlPipe } from './all.pipe';
     EmptyStateV2Component,
     ImagePreloadDirective,
     LazyImgDirective,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ShareNetworkComponent
   ],
-  imports: [CommonModule, NgxSpinnerModule],
+  imports: [CommonModule, NgxSpinnerModule, ShareButtonsModule],
 })
 export class SharedModule {}
