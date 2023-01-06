@@ -1,4 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 
 import * as L from 'leaflet';
@@ -22,6 +27,7 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
   map: any;
   project: IProject | null = null;
   apiLink = getApiBaseUrl();
+  horizontalViewMode = true;
 
   public _albums: Array<any> = [];
   constructor(
@@ -68,31 +74,29 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
   }
   addProjectMarker() {
     const marker = L.marker(
-      [
-        this.project?.latitude || 0,
-        this.project?.longitude || 0,
-      ],
+      [this.project?.latitude || 0, this.project?.longitude || 0],
       {
         icon,
       }
-    ) .setOpacity(1)
-    .bindPopup(
-      (layer) => {
-        return L.Util.template(
-          `<div style="text-align: center";>
+    )
+      .setOpacity(1)
+      .bindPopup(
+        (layer) => {
+          return L.Util.template(
+            `<div style="text-align: center";>
           ${this.project?.name?.toUpperCase()}
           </div>`,
-          layer
-        );
-      },
-      {
-        minWidth: 170,
-        maxWidth: 500,
-        offset:  new L.Point(-18, -25)
-      }
-    )
-    .addTo(this?.map)
-    
+            layer
+          );
+        },
+        {
+          minWidth: 170,
+          maxWidth: 500,
+          offset: new L.Point(-18, -25),
+        }
+      )
+      .addTo(this?.map);
+
     setTimeout(() => {
       marker.openPopup();
     }, 1000);
@@ -105,12 +109,10 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
     }, 800);
   }
   open(index: number): void {
-    // open lightbox
     this._lightbox.open(this._albums, index);
   }
 
   close(): void {
-    // close lightbox programmatically
     this._lightbox.close();
   }
 }

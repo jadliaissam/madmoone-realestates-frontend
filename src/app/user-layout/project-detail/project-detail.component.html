@@ -310,7 +310,7 @@
                             >
                               <div>
                                 <h2 class="price__main">
-                                  {{ unit.priceMin | currency : 'MAD'}}
+                                  {{ unit.priceMin | currency : "MAD" }}
                                 </h2>
                               </div>
                             </div>
@@ -380,16 +380,22 @@
                                     >Exposition {{ unit?.direction }}</span
                                   >
                                 </div>
-                                <div class="col-12 col-md-6 text-ellipsis" *ngIf="unit?.area">
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.area"
+                                >
                                   <span
                                     class="caractere__item icon icon__surface"
                                     >Superficie {{ unit?.area }} m2</span
                                   >
                                 </div>
-                                <div class="col-12 col-md-6 text-ellipsis" *ngIf="unit?.parking">
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.parking"
+                                >
                                   <span
                                     class="caractere__item icon icon__parking"
-                                    >Parking : {{unit?.parking}}</span
+                                    >Parking : {{ unit?.parking }}</span
                                   >
                                 </div>
                               </div>
@@ -410,41 +416,11 @@
                     Voir plus de biens
                   </button>
                 </div>
-                <!-- <ul
-                  class="d-flex shareInNetwork justify-content-center flex-wrap"
-                >
-                  <li>
-                    <a href="#" class="icon icon__sms both-after">SMS</a>
-                  </li>
-                  <li>
-                    <a href="#" class="icon icon__telegram both-after"
-                      >Telegram</a
-                    >
-                  </li>
-                  <li>
-                    <a href="#" class="icon icon__twitter both-after"
-                      >twitter</a
-                    >
-                  </li>
-                  <li>
-                    <a href="#" class="icon icon__whatsapp both-after"
-                      >whatsapp</a
-                    >
-                  </li>
-                  <li>
-                    <a href="#" class="icon icon__gmail both-after">mail</a>
-                  </li>
-                  <li>
-                    <a href="#" class="icon icon__network both-after"
-                      >network</a
-                    >
-                  </li>
-                </ul> -->
                 <app-share-network></app-share-network>
               </ng-template>
             </li>
-            <li [ngbNavItem]="2">
-              <a ngbNavLink>Vidéos</a>
+            <li [ngbNavItem]="2" *ngIf="project?.video">
+              <a ngbNavLink>Vidéo</a>
               <ng-template ngbNavContent>
                 <div
                   class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -457,96 +433,33 @@
                       <h2
                         class="color-default font-poppins-400 font-16 text-capitalize"
                       >
-                        Vidéos du projet
+                        Vidéo du projet
                       </h2>
-                      <div
-                        class="d-flex justify-content-between switch-display"
-                      >
-                        <button
-                          class="icon icon__row-horizontal current medium"
-                        ></button>
-                        <button class="icon icon__row-vertical"></button>
-                      </div>
                     </div>
-                    <ul class="d-flex flex-wrap gallery_display_detail">
+                    <ul
+                      class="d-flex flex-wrap gallery_display_detail"
+                      [ngClass]="{ 'flex-column': true }"
+                    >
                       <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="/assets/img/products/detail1.png"
-                          data-fancybox="main-videos"
-                          class="icon icon__play-circle both-after"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
+                        <a role="button">
+                          <video
+                            width="100%"
+                            controls=""
+                            class="border-radius-8"
+                            [src]="apiLink + project?.video"
+                            #videoPlayer
+                          ></video>
+                        </a>
                       </li>
                     </ul>
                   </div>
                 </div>
               </ng-template>
             </li>
-            <li [ngbNavItem]="3">
+            <li
+              [ngbNavItem]="3"
+              *ngIf="project?.photos && (project?.photos)!.length > 0"
+            >
               <a ngbNavLink>Photos</a>
               <ng-template ngbNavContent>
                 <div
@@ -566,73 +479,31 @@
                         class="d-flex justify-content-between switch-display"
                       >
                         <button
-                          class="icon icon__row-horizontal current medium"
+                          class="icon icon__row-horizontal medium"
+                          [ngClass]="{ current: horizontalViewMode }"
+                          (click)="horizontalViewMode = true"
                         ></button>
-                        <button class="icon icon__row-vertical"></button>
+                        <button
+                          class="icon icon__row-vertical"
+                          (click)="horizontalViewMode = false"
+                          [ngClass]="{ current: !horizontalViewMode }"
+                        ></button>
                       </div>
                     </div>
-                    <ul class="d-flex flex-wrap gallery_display_detail">
-                      <li>
+                    <ul
+                      class="d-flex flex-wrap gallery_display_detail"
+                      [ngClass]="{ 'flex-column': !horizontalViewMode }"
+                    >
+                      <li  *ngFor="let image of _albums; let i = index">
                         <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
-                        /></a>
-                      </li>
-                      <li>
-                        <a
-                          href="img/products/detail1.png"
-                          data-fancybox="main-pictures"
-                          ><img src="/assets/img/products/detail1.png" alt=""
+                          (click)="open(i)"
+                          role="button"
+                          class="images-tab-image-container"
+                          ><img
+                            [src]="image.thumb"
+                            default="/assets/img/building-image-error.png"
+                            class="border-radius-8"
+                            alt="test"
                         /></a>
                       </li>
                     </ul>
