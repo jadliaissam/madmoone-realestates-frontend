@@ -7,6 +7,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { EmptyStateV2Component } from './empty-state-v2/empty-state-v2.component';
 import { ImagePreloadDirective } from './image-preload.directive';
 import { LazyImgDirective } from './lazy-loading.directive';
+import { SafeHtmlPipe } from './all.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { LazyImgDirective } from './lazy-loading.directive';
     MadmooneSpinnerComponent,
     EmptyStateV2Component,
     ImagePreloadDirective,
-    LazyImgDirective
+    LazyImgDirective,
+    SafeHtmlPipe
   ],
   exports: [
     HeaderComponent,
@@ -24,7 +26,8 @@ import { LazyImgDirective } from './lazy-loading.directive';
     NgxSpinnerModule,
     EmptyStateV2Component,
     ImagePreloadDirective,
-    LazyImgDirective
+    LazyImgDirective,
+    SafeHtmlPipe
   ],
   imports: [CommonModule, NgxSpinnerModule],
 })

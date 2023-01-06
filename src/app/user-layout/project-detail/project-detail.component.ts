@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Lightbox, LightboxConfig } from 'ngx-lightbox';
 
 import * as L from 'leaflet';
@@ -15,6 +15,7 @@ import { IProject } from 'src/app/entities/all.entity';
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
   styleUrls: ['./project-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProjectDetailComponent implements OnInit, AfterViewInit {
   public loading = false;

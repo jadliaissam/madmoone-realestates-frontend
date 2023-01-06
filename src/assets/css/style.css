@@ -1613,7 +1613,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 100%;
+    /* font-size: 100%; */
     /*font: inherit;*/
     vertical-align: baseline;
   }
@@ -5365,6 +5365,7 @@
     height: 1rem;
     -webkit-mask-repeat: no-repeat;
             mask-repeat: no-repeat;
+            left: 15px;
   }
   @media screen and (max-width: 48em) {
     .equipments__project .icon {

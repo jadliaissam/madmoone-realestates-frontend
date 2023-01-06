@@ -29,11 +29,16 @@ export interface IProject {
     phone?: string;
     email?: string;
     webSite?: string;
+    whatsapp?: string;
     icon?: string;
     photos?: string[];
     video?: string;
     longitude?: number;
     latitude?: number;
+    state: string;
+    type: string;
+    category: string;
+    offer: string;
     projectEquipements?: IProjectEquipement[];
     projectUnits?: IProjectUnit[];
     _v?: number;

@@ -1,779 +1,792 @@
 <div class="project-details-place">
   <app-madmoone-spinner
-[loading]="loading"
-[height]="'650px'"
-></app-madmoone-spinner>
-<section class="contentWithParts" [hidden]="!project || loading">
-  <div class="main">
-    <main>
-      <div class="right-part__wrapper d-flex flex-column">
-        <!-- ====== START Previous and btn add to favorer ====== -->
-        <div
-          class="d-flex justify-content-between align-items-center mb-4 ms-2 fw-semibold color-default"
-        >
-          Détail de projet
-        </div>
-        <!-- ====== END Previous and btn add to favorer ====== -->
-        <div class="pswp-gallery mb20" id="my-gallery" *ngIf="_albums.length > 0">
-          <div class="gallery-in-first">
-            <div
-              *ngFor="let image of _albums | slice : 0 : 7; let i = index"
-              class="gallery__item--{{ i + 1 }}"
-              (click)="open(i)"
-              [ngClass]="{
-                'gallery-in-first__more': i === 6 && _albums.length > 7,
-                'border-radius-8': i === 0
-              }"
-            >
-              <img [src]="image.thumb" 
-              default="/assets/img/building-image-error.png"
-              class="gallery__img border-radius-8" />
-              <span
-                *ngIf="i === 6 && _albums.length > 7"
-                class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
-                style="z-index: 1"
-                ><span class="pe-1">{{ _albums.length - 4 }}</span
-                ><span class="d-none d-sm-inline">autres photos</span></span
+    [loading]="loading"
+    [height]="'650px'"
+  ></app-madmoone-spinner>
+  <section class="contentWithParts" [hidden]="!project || loading">
+    <div class="main">
+      <main>
+        <div class="right-part__wrapper d-flex flex-column">
+          <!-- ====== START Previous and btn add to favorer ====== -->
+          <div
+            class="d-flex justify-content-between align-items-center mb-4 ms-2 fw-semibold color-default"
+          >
+            Détail de projet
+          </div>
+          <!-- ====== END Previous and btn add to favorer ====== -->
+          <div
+            class="pswp-gallery mb20"
+            id="my-gallery"
+            *ngIf="_albums.length > 0"
+          >
+            <div class="gallery-in-first">
+              <div
+                *ngFor="let image of _albums | slice : 0 : 7; let i = index"
+                class="gallery__item--{{ i + 1 }}"
+                (click)="open(i)"
+                [ngClass]="{
+                  'gallery-in-first__more': i === 6 && _albums.length > 7,
+                  'border-radius-8': i === 0
+                }"
               >
+                <img
+                  [src]="image.thumb"
+                  default="/assets/img/building-image-error.png"
+                  class="gallery__img border-radius-8"
+                />
+                <span
+                  *ngIf="i === 6 && _albums.length > 7"
+                  class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
+                  style="z-index: 1"
+                  ><span class="pe-1">{{ _albums.length - 4 }}</span
+                  ><span class="d-none d-sm-inline">autres photos</span></span
+                >
+              </div>
             </div>
           </div>
-        </div>
-        <div class="d-flex align-items-center mb-3">
-          <img
-            [src]="apiLink+project?.icon || ''"
-            default="/assets/img/building-image-error.png"
-            class="imgPromoteur border-radius-50"
-            alt=""
-          />
-          <div class="d-flex flex-column mx-3">
-            <h4 class="font-poppins-700 font-16 color-grey">
-              {{ project?.name || '' }}
-            </h4>
-            <!-- <h5 class="font-poppins-400 font-14 color-grey2">23 Vues</h5> -->
+          <div class="d-flex align-items-center mb-3">
+            <img
+              [src]="apiLink + project?.icon || ''"
+              default="/assets/img/building-image-error.png"
+              class="imgPromoteur border-radius-50"
+              alt=""
+            />
+            <div class="d-flex flex-column mx-3">
+              <h4 class="font-poppins-700 font-16 color-grey">
+                {{ project?.name || "" }}
+              </h4>
+            </div>
           </div>
-        </div>
-        <ul ngbNav #nav="ngbNav" class="nav-tabs border-0" [destroyOnHide]="false">
-          <li [ngbNavItem]="1">
-            <a ngbNavLink>Accueil</a>
-            <ng-template ngbNavContent>
-              <div class="mb-3">
-                <div
-                class="project-map border-radius-8"
-                [ngClass]="{
-                  'no-map':
-                    !project?.longitude || !project?.latitude
-                }"
-                id="map"
-              ></div> 
-              </div>
-              <div
-                class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
-              >
-                <div class="d-flex flex-column tabsContent__description--left">
-                  <h3 class="font-14 font-poppins-400 color-default my-2">
-                    sun square almaz
-                  </h3>
-                  <h4 class="font-12 font-poppins-400 color-grey mb-2">
-                    Déscription
-                  </h4>
-                  <p class="font-12 color-grey3">
-                    Le projet SUNSQUAR propose des villas des appartements des
-                    maisons , des duplex et des penthouses qui disposent tous de
-                    beaux volumes et d’espaces de vie lumineux et parfaitement
-                    agencés. propose des villas des appartements des maisons,
-                  </p>
-                  <p class="font-12 color-grey3">
-                    des duplex et des penthouses qui disposent tous de beaux
-                    volumes et d’espaces de vie lumineux et parfaitement
-                    agencés. propose des villas des appartements des maisons ,
-                    des duplex et des penthouses qui disposent tous de beaux
-                    volumes.duplex et des penthouses qui disposent tous de beaux
-                    volumes et d’espaces de vie lumineux et parfaitement
-                    agencés. propose des villas des appartements des maisons
-                  </p>
-                  <p class="font-12 color-grey3">
-                    Tous de beaux volumes.duplex et des penthouses qui disposent
-                    tous de beaux volumes et d’espaces de vie lumineux et
-                    parfaitement agencés.
-                  </p>
-                  <ul class="d-flex property-project mb-3 flex-wrap">
-                    <li
-                      class="d-flex flex-column icon icon__bigproject flex-wrap"
-                    >
-                      <h5
-                        class="font-poppins-400 color-default font-11 text-capitalize pt-2"
-                      >
-                        état du projet
-                      </h5>
-                      <span class="font-11 font-poppins-400 color-grey3"
-                        >Neuf</span
-                      >
-                    </li>
-                    <li
-                      class="d-flex flex-column icon icon__bigproject flex-wrap"
-                    >
-                      <h5
-                        class="font-poppins-400 color-default font-11 text-capitalize pt-2"
-                      >
-                        Type du projet
-                      </h5>
-                      <span class="font-11 font-poppins-400 color-grey3"
-                        >Villa</span
-                      >
-                    </li>
-                    <li
-                      class="d-flex flex-column icon icon__bigproject flex-wrap"
-                    >
-                      <h5
-                        class="font-poppins-400 color-default font-11 text-capitalize pt-2"
-                      >
-                        type d’annonce
-                      </h5>
-                      <span class="font-11 font-poppins-400 color-grey3"
-                        >Vente</span
-                      >
-                    </li>
-                    <li
-                      class="d-flex flex-column icon icon__bigproject flex-wrap"
-                    >
-                      <h5
-                        class="font-poppins-400 color-default font-11 text-capitalize pt-2"
-                      >
-                        Statut du projet
-                      </h5>
-                      <span class="font-11 font-poppins-400 color-grey3"
-                        >Finis</span
-                      >
-                    </li>
-                  </ul>
+          <ul
+            ngbNav
+            #nav="ngbNav"
+            class="nav-tabs border-0"
+            [destroyOnHide]="false"
+          >
+            <li [ngbNavItem]="1">
+              <a ngbNavLink>Accueil</a>
+              <ng-template ngbNavContent>
+                <div class="mb-3">
+                  <div
+                    class="project-map border-radius-8"
+                    [ngClass]="{
+                      'no-map': !project?.longitude || !project?.latitude
+                    }"
+                    id="map"
+                  ></div>
                 </div>
                 <div
-                  class="tabsContent__description--right d-flex flex-column border-radius-8 bg-grey py-3 px-2"
+                  class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
                 >
-                  <h3 class="font-14 font-poppins-400 color-default mb-3">
-                    Informations générales
-                  </h3>
-                  <ul>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                  <div
+                    class="d-flex flex-column tabsContent__description--left"
+                  >
+                    <h3
+                      class="font-14 font-poppins-400 color-default my-2"
+                      *ngIf="project?.name"
                     >
-                      SunSquare almaza tranche 2000
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__profile mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                    >
-                      Abdelouahed Sunsquar
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__briefcase mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                    >
-                      Madmoone Inc.
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__city mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                    >
-                      Casablanca
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__phone mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                    >
-                      +212 671 851 670
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__mail mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                    >
-                      sunsquaralmazar@gmail.com
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__siteweb mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                    >
-                      <a
-                        class="d-inline color-default size-12"
-                        href="www.sunsquaralmazar.ma"
-                        >www.sunsquaralmazar.ma</a
+                      {{ project?.name }}
+                    </h3>
+                    <h4 class="font-12 font-poppins-400 color-grey mb-2">
+                      Déscription
+                    </h4>
+                    <p
+                      *ngIf="project?.description"
+                      [innerHTML]="project?.description | safeHtml"
+                      class="font-12 color-grey3"
+                    ></p>
+                    <ul class="d-flex property-project mb-3 flex-wrap">
+                      <li
+                        class="d-flex flex-column icon icon__bigproject flex-wrap"
+                        *ngIf="project?.type"
                       >
-                    </li>
-                  </ul>
-                  <div class="d-flex contact">
-                    <a
-                      class="icon icon__phone flex-grow-1 align-items-center justify-content-center border-radius-8 both-after bg-green me-2"
-                      href="#"
-                    >
-                    </a>
-                    <a
-                      class="icon icon__mail2 flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after me-2"
-                      href="#"
-                    ></a>
-                    <a
-                      class="icon icon__whatsapp flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after"
-                      href="#"
-                    ></a>
+                        <h5
+                          class="font-poppins-400 color-default font-11 text-capitalize pt-2"
+                        >
+                          état du projet
+                        </h5>
+                        <span class="font-11 font-poppins-400 color-grey3">{{
+                          project?.type
+                        }}</span>
+                      </li>
+                      <li
+                        class="d-flex flex-column icon icon__bigproject flex-wrap"
+                        *ngIf="project?.category"
+                      >
+                        <h5
+                          class="font-poppins-400 color-default font-11 text-capitalize pt-2"
+                        >
+                          Type du projet
+                        </h5>
+                        <span class="font-11 font-poppins-400 color-grey3">{{
+                          project?.category
+                        }}</span>
+                      </li>
+                      <li
+                        class="d-flex flex-column icon icon__bigproject flex-wrap"
+                        *ngIf="project?.offer"
+                      >
+                        <h5
+                          class="font-poppins-400 color-default font-11 text-capitalize pt-2"
+                        >
+                          type d’annonce
+                        </h5>
+                        <span class="font-11 font-poppins-400 color-grey3">{{
+                          project?.offer
+                        }}</span>
+                      </li>
+                      <li
+                        class="d-flex flex-column icon icon__bigproject flex-wrap"
+                        *ngIf="project?.state"
+                      >
+                        <h5
+                          class="font-poppins-400 color-default font-11 text-capitalize pt-2"
+                        >
+                          Statut du projet
+                        </h5>
+                        <span class="font-11 font-poppins-400 color-grey3">{{
+                          project?.state
+                        }}</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    class="tabsContent__description--right d-flex flex-column border-radius-8 bg-grey py-3 px-2"
+                  >
+                    <h3 class="font-14 font-poppins-400 color-default mb-3">
+                      Informations générales
+                    </h3>
+                    <ul>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.address"
+                      >
+                        {{ project?.address }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__profile mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.promoterName"
+                      >
+                        {{ project?.promoterName }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__briefcase mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.companyName"
+                      >
+                        {{ project?.companyName }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__city mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.city"
+                      >
+                        {{ project?.city }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__phone mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.phone"
+                      >
+                        {{ project?.phone }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__mail mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.email"
+                      >
+                        {{ project?.email }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__siteweb mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                        *ngIf="project?.webSite"
+                      >
+                        <a
+                          class="d-inline color-default size-12"
+                          target="_blank"
+                          href="{{ project?.webSite }}"
+                          >{{ project?.webSite }}</a
+                        >
+                      </li>
+                    </ul>
+                    <div class="d-flex contact">
+                      <a
+                        class="icon icon__phone flex-grow-1 align-items-center justify-content-center border-radius-8 both-after bg-green me-2"
+                        *ngIf="project?.phone"
+                        href="tel:{{ project?.phone }}"
+                      >
+                      </a>
+                      <a
+                        class="icon icon__mail2 flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after me-2"
+                        *ngIf="project?.email"
+                        target="_blank"
+                        href="mailto:{{ project?.email }}"
+                      ></a>
+                      <a
+                        class="icon icon__whatsapp flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after"
+                        *ngIf="project?.whatsapp"
+                        target="_blank"
+                        href="{{ project?.whatsapp }}"
+                      ></a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <h2 class="color-default font-16 font-poppins-400 mb-3">
-                Equipements projet
-              </h2>
-              <div class="d-flex flex-wrap equipments__project mb-5">
-                <span
-                  class="icon icon__piscine bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 mb-2"
-                  >Piscine</span
-                >
-                <span
-                  class="icon icon__gym bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 mb-2"
-                  >Gym</span
-                >
-                <span
-                  class="icon icon__jardin bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 mb-2"
-                  >Jardin</span
-                >
-                <span
-                  class="icon icon__children-space bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 mb-2"
-                  >Espace enfants</span
-                >
-                <span
-                  class="icon icon__beach bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 text-capitalize mb-2"
-                  >plage</span
-                >
-                <span
-                  class="icon icon__book bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 text-capitalize mb-2"
-                  >Ecole</span
-                >
-                <span
-                  class="icon icon__restaurant bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 text-capitalize mb-2"
-                  >Restaurant</span
-                >
-                <span
-                  class="icon icon__security bg-grey d-flex ps-5 font-12 font-poppins-400 p-3 border-radius-8 text-capitalize mb-2"
-                  >Sécurité</span
-                >
-              </div>
-
-              <hr class="mb-4" />
-              <div
-                class="d-flex justify-content-between align-items-center flex-column flex-sm-row mb-3"
-              >
                 <h2
-                  class="color-default font-poppins-400 font-16 text-capitalize mb-2 mb-sm-0"
+                  class="color-default font-16 font-poppins-400 mb-3"
+                  *ngIf="
+                    project?.projectEquipements &&
+                    (project?.projectEquipements)!.length > 0
+                  "
                 >
-                  Unités dans ce Projet
+                  Equipements projet
                 </h2>
-              </div>
-              <div class="row mb-5">
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3">
-                  <div class="product shadow">
-                    <div class="picture">
-                      <img src="/assets/img/products/product1.jpg" alt="" />
-                    </div>
-                    <div class="content">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <h3 class="font-poppins-700 color-grey font-14">
-                            Villa Orchidée
-                          </h3>
-                          <span class="color-default font-12 font-poppins-400"
-                            >code 763536</span
-                          >
-                        </div>
-                      </div>
-                      <div class="price__wrapper d-flex flex-column mb-3">
-                        <span class="font-poppins-400 font-14 color-grey mb-2"
-                          >À partir de</span
-                        >
-                        <div
-                          class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
-                        >
-                          <div>
-                            <h2 class="price__main">1,620,000 MAD</h2>
-                          </div>
-                        </div>
-                      </div>
-                      <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                        Caractéristiques du projet
-                      </h3>
-                      <ul class="caractere__list half_in_2 mb-4">
-                        <li>
-                          <span class="caractere__item icon icon__balcon"
-                            >Balcon</span
-                          >
-                          <span class="caractere__item icon icon__placard"
-                            >Appartement</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__chambre"
-                            >3 Chambres</span
-                          >
-                          <span class="caractere__item icon icon__ascenseur"
-                            >1 salon</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__etage"
-                            >5éme étage</span
-                          >
-                          <span class="caractere__item icon icon__securite"
-                            >2 SDB</span
-                          >
-                        </li>
-                      </ul>
-                      <ul class="caractere__list half_in_2 mb-4">
-                        <li>
-                          <span class="caractere__item icon icon__key"
-                            >Immédiate</span
-                          >
-                          <span class="caractere__item icon icon__direction"
-                            >Exposition Sud</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__surface"
-                            >Superficie 120 m2</span
-                          >
-                          <span class="caractere__item icon icon__address2"
-                            >2 Km de casablanca</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__parking"
-                            >Parking : 14m2 Titré</span
-                          >
-                        </li>
-                      </ul>
-                      <a
-                        href="#"
-                        class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                        >Plus de details</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3">
-                  <div class="product shadow">
-                    <div class="picture">
-                      <img src="/assets/img/products/product1.jpg" alt="" />
-                    </div>
-                    <div class="content">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <h3 class="font-poppins-700 color-grey font-14">
-                            Villa Orchidée
-                          </h3>
-                          <span class="color-default font-12 font-poppins-400"
-                            >code 763536</span
-                          >
-                        </div>
-                      </div>
-                      <div class="price__wrapper d-flex flex-column mb-3">
-                        <span class="font-poppins-400 font-14 color-grey mb-2"
-                          >À partir de</span
-                        >
-                        <div
-                          class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
-                        >
-                          <div>
-                            <h2 class="price__main">1,620,000 MAD</h2>
-                          </div>
-                        </div>
-                      </div>
-                      <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                        Caractéristiques du projet
-                      </h3>
-                      <ul class="caractere__list half_in_2 mb-4">
-                        <li>
-                          <span class="caractere__item icon icon__balcon"
-                            >Balcon</span
-                          >
-                          <span class="caractere__item icon icon__placard"
-                            >Appartement</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__chambre"
-                            >3 Chambres</span
-                          >
-                          <span class="caractere__item icon icon__ascenseur"
-                            >1 salon</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__etage"
-                            >5éme étage</span
-                          >
-                          <span class="caractere__item icon icon__securite"
-                            >2 SDB</span
-                          >
-                        </li>
-                      </ul>
-                      <ul class="caractere__list half_in_2 mb-4">
-                        <li>
-                          <span class="caractere__item icon icon__key"
-                            >Immédiate</span
-                          >
-                          <span class="caractere__item icon icon__direction"
-                            >Exposition Sud</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__surface"
-                            >Superficie 120 m2</span
-                          >
-                          <span class="caractere__item icon icon__address2"
-                            >2 Km de casablanca</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__parking"
-                            >Parking : 14m2 Titré</span
-                          >
-                        </li>
-                      </ul>
-                      <a
-                        href="#"
-                        class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                        >Plus de details</a
-                      >
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3">
-                  <div class="product shadow">
-                    <div class="picture">
-                      <img src="/assets/img/products/product1.jpg" alt="" />
-                    </div>
-                    <div class="content">
-                      <div
-                        class="d-flex justify-content-between align-items-center mb-4"
-                      >
-                        <div>
-                          <h3 class="font-poppins-700 color-grey font-14">
-                            Villa Orchidée
-                          </h3>
-                          <span class="color-default font-12 font-poppins-400"
-                            >code 763536</span
-                          >
-                        </div>
-                      </div>
-                      <div class="price__wrapper d-flex flex-column mb-3">
-                        <span class="font-poppins-400 font-14 color-grey mb-2"
-                          >À partir de</span
-                        >
-                        <div
-                          class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
-                        >
-                          <div>
-                            <h2 class="price__main">1,620,000 MAD</h2>
-                          </div>
-                        </div>
-                      </div>
-                      <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                        Caractéristiques du projet
-                      </h3>
-                      <ul class="caractere__list half_in_2 mb-4">
-                        <li>
-                          <span class="caractere__item icon icon__balcon"
-                            >Balcon</span
-                          >
-                          <span class="caractere__item icon icon__placard"
-                            >Appartement</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__chambre"
-                            >3 Chambres</span
-                          >
-                          <span class="caractere__item icon icon__ascenseur"
-                            >1 salon</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__etage"
-                            >5éme étage</span
-                          >
-                          <span class="caractere__item icon icon__securite"
-                            >2 SDB</span
-                          >
-                        </li>
-                      </ul>
-                      <ul class="caractere__list half_in_2 mb-4">
-                        <li>
-                          <span class="caractere__item icon icon__key"
-                            >Immédiate</span
-                          >
-                          <span class="caractere__item icon icon__direction"
-                            >Exposition Sud</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__surface"
-                            >Superficie 120 m2</span
-                          >
-                          <span class="caractere__item icon icon__address2"
-                            >2 Km de casablanca</span
-                          >
-                        </li>
-                        <li>
-                          <span class="caractere__item icon icon__parking"
-                            >Parking : 14m2 Titré</span
-                          >
-                        </li>
-                      </ul>
-                      <a
-                        href="#"
-                        class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                        >Plus de details</a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex justify-content-center mb-5">
-                <button class="main-btn bg-white h-40" style="width: 388px">
-                  Voir plus de biens
-                </button>
-              </div>
-              <ul
-                class="d-flex shareInNetwork justify-content-center flex-wrap"
-              >
-                <li>
-                  <a href="#" class="icon icon__sms both-after">SMS</a>
-                </li>
-                <li>
-                  <a href="#" class="icon icon__telegram both-after"
-                    >Telegram</a
-                  >
-                </li>
-                <li>
-                  <a href="#" class="icon icon__twitter both-after">twitter</a>
-                </li>
-                <li>
-                  <a href="#" class="icon icon__whatsapp both-after"
-                    >whatsapp</a
-                  >
-                </li>
-                <li>
-                  <a href="#" class="icon icon__gmail both-after">mail</a>
-                </li>
-                <li>
-                  <a href="#" class="icon icon__network both-after">network</a>
-                </li>
-              </ul>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="2">
-            <a ngbNavLink>Vidéos</a>
-            <ng-template ngbNavContent>
-              <div
-                class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
-              >
-                <div class="d-flex flex-column">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                    style="margin-bottom: 32px"
-                  >
-                    <h2
-                      class="color-default font-poppins-400 font-16 text-capitalize"
+                <div class="d-flex flex-wrap equipments__project mb-5 row g-3">
+                  <div *ngFor="let equi of project?.projectEquipements" class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <span
+                      class="bg-grey d-flex font-12 font-poppins-400 p-3 border-radius-8"
                     >
-                      Vidéos du projet
-                    </h2>
-                    <div class="d-flex justify-content-between switch-display">
-                      <button
-                        class="icon icon__row-horizontal current medium"
-                      ></button>
-                      <button class="icon icon__row-vertical"></button>
-                    </div>
+                      <span
+                        class="pe-2  icon-{{ equi?.icon }} fs-6 color-default"
+                        [ngClass]="{ 'icon-eb18': !equi?.icon }"
+                      ></span>
+                      {{ equi?.name }}
+                    </span>
                   </div>
-                  <ul class="d-flex flex-wrap gallery_display_detail">
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="/assets/img/products/detail1.png"
-                        data-fancybox="main-videos"
-                        class="icon icon__play-circle both-after"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                  </ul>
                 </div>
-              </div>
-            </ng-template>
-          </li>
-          <li [ngbNavItem]="3">
-            <a ngbNavLink>Photos</a>
-            <ng-template ngbNavContent>
-              <div
-                class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
-              >
-                <div class="d-flex flex-column">
-                  <div
-                    class="d-flex justify-content-between align-items-center"
-                    style="margin-bottom: 32px"
+
+                <hr class="mb-4" />
+                <div
+                  class="d-flex justify-content-between align-items-center flex-column flex-sm-row mb-3"
+                >
+                  <h2
+                    class="color-default font-poppins-400 font-16 text-capitalize mb-2 mb-sm-0"
                   >
-                    <h2
-                      class="color-default font-poppins-400 font-16 text-capitalize"
-                    >
-                      Photos du projet
-                    </h2>
-                    <div class="d-flex justify-content-between switch-display">
-                      <button
-                        class="icon icon__row-horizontal current medium"
-                      ></button>
-                      <button class="icon icon__row-vertical"></button>
+                    Unités dans ce Projet
+                  </h2>
+                </div>
+                <div class="row mb-5">
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
+                  >
+                    <div class="product shadow">
+                      <div class="picture">
+                        <img src="/assets/img/products/product1.jpg" alt="" />
+                      </div>
+                      <div class="content">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                          <div>
+                            <h3 class="font-poppins-700 color-grey font-14">
+                              Villa Orchidée
+                            </h3>
+                            <span class="color-default font-12 font-poppins-400"
+                              >code 763536</span
+                            >
+                          </div>
+                        </div>
+                        <div class="price__wrapper d-flex flex-column mb-3">
+                          <span class="font-poppins-400 font-14 color-grey mb-2"
+                            >À partir de</span
+                          >
+                          <div
+                            class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                          >
+                            <div>
+                              <h2 class="price__main">1,620,000 MAD</h2>
+                            </div>
+                          </div>
+                        </div>
+                        <h3 class="font-poppins-500 font-14 color-grey mb-4">
+                          Caractéristiques du projet
+                        </h3>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <span class="caractere__item icon icon__balcon"
+                              >Balcon</span
+                            >
+                            <span class="caractere__item icon icon__placard"
+                              >Appartement</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__chambre"
+                              >3 Chambres</span
+                            >
+                            <span class="caractere__item icon icon__ascenseur"
+                              >1 salon</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__etage"
+                              >5éme étage</span
+                            >
+                            <span class="caractere__item icon icon__securite"
+                              >2 SDB</span
+                            >
+                          </li>
+                        </ul>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <span class="caractere__item icon icon__key"
+                              >Immédiate</span
+                            >
+                            <span class="caractere__item icon icon__direction"
+                              >Exposition Sud</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__surface"
+                              >Superficie 120 m2</span
+                            >
+                            <span class="caractere__item icon icon__address2"
+                              >2 Km de casablanca</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__parking"
+                              >Parking : 14m2 Titré</span
+                            >
+                          </li>
+                        </ul>
+                        <a
+                          href="#"
+                          class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
+                          >Plus de details</a
+                        >
+                      </div>
                     </div>
                   </div>
-                  <ul class="d-flex flex-wrap gallery_display_detail">
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                    <li>
-                      <a
-                        href="img/products/detail1.png"
-                        data-fancybox="main-pictures"
-                        ><img src="/assets/img/products/detail1.png" alt=""
-                      /></a>
-                    </li>
-                  </ul>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
+                  >
+                    <div class="product shadow">
+                      <div class="picture">
+                        <img src="/assets/img/products/product1.jpg" alt="" />
+                      </div>
+                      <div class="content">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                          <div>
+                            <h3 class="font-poppins-700 color-grey font-14">
+                              Villa Orchidée
+                            </h3>
+                            <span class="color-default font-12 font-poppins-400"
+                              >code 763536</span
+                            >
+                          </div>
+                        </div>
+                        <div class="price__wrapper d-flex flex-column mb-3">
+                          <span class="font-poppins-400 font-14 color-grey mb-2"
+                            >À partir de</span
+                          >
+                          <div
+                            class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                          >
+                            <div>
+                              <h2 class="price__main">1,620,000 MAD</h2>
+                            </div>
+                          </div>
+                        </div>
+                        <h3 class="font-poppins-500 font-14 color-grey mb-4">
+                          Caractéristiques du projet
+                        </h3>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <span class="caractere__item icon icon__balcon"
+                              >Balcon</span
+                            >
+                            <span class="caractere__item icon icon__placard"
+                              >Appartement</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__chambre"
+                              >3 Chambres</span
+                            >
+                            <span class="caractere__item icon icon__ascenseur"
+                              >1 salon</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__etage"
+                              >5éme étage</span
+                            >
+                            <span class="caractere__item icon icon__securite"
+                              >2 SDB</span
+                            >
+                          </li>
+                        </ul>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <span class="caractere__item icon icon__key"
+                              >Immédiate</span
+                            >
+                            <span class="caractere__item icon icon__direction"
+                              >Exposition Sud</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__surface"
+                              >Superficie 120 m2</span
+                            >
+                            <span class="caractere__item icon icon__address2"
+                              >2 Km de casablanca</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__parking"
+                              >Parking : 14m2 Titré</span
+                            >
+                          </li>
+                        </ul>
+                        <a
+                          href="#"
+                          class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
+                          >Plus de details</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
+                  >
+                    <div class="product shadow">
+                      <div class="picture">
+                        <img src="/assets/img/products/product1.jpg" alt="" />
+                      </div>
+                      <div class="content">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                          <div>
+                            <h3 class="font-poppins-700 color-grey font-14">
+                              Villa Orchidée
+                            </h3>
+                            <span class="color-default font-12 font-poppins-400"
+                              >code 763536</span
+                            >
+                          </div>
+                        </div>
+                        <div class="price__wrapper d-flex flex-column mb-3">
+                          <span class="font-poppins-400 font-14 color-grey mb-2"
+                            >À partir de</span
+                          >
+                          <div
+                            class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                          >
+                            <div>
+                              <h2 class="price__main">1,620,000 MAD</h2>
+                            </div>
+                          </div>
+                        </div>
+                        <h3 class="font-poppins-500 font-14 color-grey mb-4">
+                          Caractéristiques du projet
+                        </h3>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <span class="caractere__item icon icon__balcon"
+                              >Balcon</span
+                            >
+                            <span class="caractere__item icon icon__placard"
+                              >Appartement</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__chambre"
+                              >3 Chambres</span
+                            >
+                            <span class="caractere__item icon icon__ascenseur"
+                              >1 salon</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__etage"
+                              >5éme étage</span
+                            >
+                            <span class="caractere__item icon icon__securite"
+                              >2 SDB</span
+                            >
+                          </li>
+                        </ul>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <span class="caractere__item icon icon__key"
+                              >Immédiate</span
+                            >
+                            <span class="caractere__item icon icon__direction"
+                              >Exposition Sud</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__surface"
+                              >Superficie 120 m2</span
+                            >
+                            <span class="caractere__item icon icon__address2"
+                              >2 Km de casablanca</span
+                            >
+                          </li>
+                          <li>
+                            <span class="caractere__item icon icon__parking"
+                              >Parking : 14m2 Titré</span
+                            >
+                          </li>
+                        </ul>
+                        <a
+                          href="#"
+                          class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
+                          >Plus de details</a
+                        >
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </ng-template>
-          </li>
-        </ul>
-        <div
-          [ngbNavOutlet]="nav"
-          class="mt-2 right-part__wrapper--tabsContent"
-        ></div>
-      </div>
-    </main>
-  </div>
-</section>
-<app-empty-state-v2
-*ngIf="!project && !loading"
-[mainClass]="'wrapperProjects'"
-[secondClass]="'wrapperProjects__new'"
-[title]="'Projets'"
-[description]="
-  'Aucun projet trouvé'
-"
-[hasAction]="false"
-></app-empty-state-v2>
+                <div class="d-flex justify-content-center mb-5">
+                  <button class="main-btn bg-white h-40" style="width: 388px">
+                    Voir plus de biens
+                  </button>
+                </div>
+                <ul
+                  class="d-flex shareInNetwork justify-content-center flex-wrap"
+                >
+                  <li>
+                    <a href="#" class="icon icon__sms both-after">SMS</a>
+                  </li>
+                  <li>
+                    <a href="#" class="icon icon__telegram both-after"
+                      >Telegram</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="icon icon__twitter both-after"
+                      >twitter</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="icon icon__whatsapp both-after"
+                      >whatsapp</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" class="icon icon__gmail both-after">mail</a>
+                  </li>
+                  <li>
+                    <a href="#" class="icon icon__network both-after"
+                      >network</a
+                    >
+                  </li>
+                </ul>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+              <a ngbNavLink>Vidéos</a>
+              <ng-template ngbNavContent>
+                <div
+                  class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
+                >
+                  <div class="d-flex flex-column">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                      style="margin-bottom: 32px"
+                    >
+                      <h2
+                        class="color-default font-poppins-400 font-16 text-capitalize"
+                      >
+                        Vidéos du projet
+                      </h2>
+                      <div
+                        class="d-flex justify-content-between switch-display"
+                      >
+                        <button
+                          class="icon icon__row-horizontal current medium"
+                        ></button>
+                        <button class="icon icon__row-vertical"></button>
+                      </div>
+                    </div>
+                    <ul class="d-flex flex-wrap gallery_display_detail">
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="/assets/img/products/detail1.png"
+                          data-fancybox="main-videos"
+                          class="icon icon__play-circle both-after"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+              <a ngbNavLink>Photos</a>
+              <ng-template ngbNavContent>
+                <div
+                  class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
+                >
+                  <div class="d-flex flex-column">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                      style="margin-bottom: 32px"
+                    >
+                      <h2
+                        class="color-default font-poppins-400 font-16 text-capitalize"
+                      >
+                        Photos du projet
+                      </h2>
+                      <div
+                        class="d-flex justify-content-between switch-display"
+                      >
+                        <button
+                          class="icon icon__row-horizontal current medium"
+                        ></button>
+                        <button class="icon icon__row-vertical"></button>
+                      </div>
+                    </div>
+                    <ul class="d-flex flex-wrap gallery_display_detail">
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                      <li>
+                        <a
+                          href="img/products/detail1.png"
+                          data-fancybox="main-pictures"
+                          ><img src="/assets/img/products/detail1.png" alt=""
+                        /></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div
+            [ngbNavOutlet]="nav"
+            class="mt-2 right-part__wrapper--tabsContent"
+          ></div>
+        </div>
+      </main>
+    </div>
+  </section>
+  <app-empty-state-v2
+    *ngIf="!project && !loading"
+    [mainClass]="'wrapperProjects'"
+    [secondClass]="'wrapperProjects__new'"
+    [title]="'Projets'"
+    [description]="'Aucun projet trouvé'"
+    [hasAction]="false"
+  ></app-empty-state-v2>
 </div>
