@@ -1,0 +1,225 @@
+<app-madmoone-spinner
+  [loading]="loading"
+  [height]="'650px'"
+></app-madmoone-spinner>
+<section class="contentWithParts">
+  <div class="main">
+    <main class="w-100">
+      <div class="right-part__wrapper d-flex flex-column bg-grey">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <!-- ====== START block Retour ======-->
+          <div
+            class="d-inline-flex align-items-center bg-white border-radius-8 align-self-start font-12"
+          >
+            <a
+              class="h-42 ps-2 pe-4 color-grey d-flex align-items-center"
+              routerLink="/"
+            >
+              <span class="icon icon__arrow-left-white ps-4 icon--grey"
+                >Retour</span
+              >
+            </a>
+            <span
+              class="d-flex align-items-center font-poppins-400 h-42 px-3 bg-default color-white border-radius-8"
+              >Liste des Biens</span
+            >
+          </div>
+          <!-- ====== END block Retour ======-->
+        </div>
+      </div>
+      <div class="bg-white border-radius-8 mb-32 p-3">
+        <div
+          class="d-flex align-items-center justify-content-between mb-0"
+          [ngStyle]="{ 'margin-bottom.px': !showFilter ? 26 : null }"
+        >
+          <div class="madmoone-block-title-container">
+            <span class="madmoone-block-title">{{ title }}</span>
+            <span class="madmoone-block-desc">{{ desc }}</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <ng-container *ngIf="showFilter">
+              <button
+                class="bg-dark2 bg-white-to-grey-in-span h-40 main-btn me-10px px-3 me-2"
+                (click)="resetForm()"
+              >
+                <span
+                  class="icon icon__refresh icon-mask-100-size me-2 pe-3"
+                ></span>
+                Réinisialiser
+              </button>
+              <button
+                class="bg-white-to-blue-in-span h-40 main-btn px-3"
+                (click)="showFilter = false"
+              >
+                <span
+                  class="icon icon__close-circle icon-mask-100-size me-2 pe-3 position-relative top-0"
+                  style="right: 0"
+                ></span>
+                Fermer
+              </button>
+            </ng-container>
+            <ng-container *ngIf="!showFilter">
+              <button
+                class="bg-white-to-blue-in-span h-40 main-btn px-3"
+                (click)="showFilter = true"
+              >
+                <span
+                  class="icon icon-mask-100-size icon__settings me-2 pe-3"
+                ></span>
+                Filtre
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <div class="filter-sections pt-3" *ngIf="showFilter">
+          <form class="w-100" [formGroup]="filterForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="madmoone-form-group madmoone-form-group-sm mb-0">
+                  <label class="madmoone-form-label">unites de Bien</label>
+                  <!--                  <input class="form-control madmoone-form-input" placeholder="Filter par Bien">-->
+                  <ng-select
+                    [items]="projectUnits"
+                    (change)=filter()
+                    bindLabel="name"
+                    [clearable]="true"
+                    [multiple]="true"
+                    [searchable]="true"
+                    bindValue="_id"
+                    placeholder="Filter par Unités de Bien"
+                    formControlName="unites"
+                    class="madmoone-form-input"
+                  >
+                    <img src="/assets/img/arrow-down.svg" />
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="row gx-0 g-md-3 g-3"
+        *ngIf="realStates && realStates!.length > 0 && !loading"
+      >
+        <div class="col-12 col-md-6 col-xl-4" *ngFor="let realEstate of realStates">
+          <div
+            class="project-property-recap product same-width mb-0 h-100"
+            routerLink="./{{ realEstate?._id }}"
+            role="button"
+          >
+            <div class="property-recap-image-container bg-white">
+              <img
+                *ngIf="realEstate?.photos && (realEstate?.photos)!.length > 0"
+                default="/assets/img/building.svg"
+                [src]="apiLink + realEstate!.photos[0]"
+                default
+                alt="image property"
+              />
+              <div
+                *ngIf="!realEstate?.photos || realEstate?.photos?.length === 0"
+                class="color-default font-sfpro-500 sidebar-short-info flat"
+              >
+                {{ realEstate?.name | slice : 0 : 2 }}
+              </div>
+            </div>
+            <div class="property-recap-infos-container h-100">
+              <div
+                class="content py-2 px-0 position-relative d-flex w-100 flex-column justify-content-center"
+              >
+                <div
+                  class="align-items-center d-flex justify-content-between mb-3"
+                >
+                  <h3 class="font-14 font-poppins-400 color-default me-2 text-ellipsis">
+                    {{ realEstate?.name }}
+                  </h3>
+                </div>
+                <ul class="mb-2">
+                  <li
+                    class="font-poppins-400 color-grey icon icon__surface mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.area"
+                  >
+                    <span class="font-poppins-700"
+                      >{{ realEstate?.area }} m2</span
+                    >
+                  </li>
+                  <li
+                    class="font-poppins-400 color-grey icon icon__surface mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.rooms && (realEstate?.rooms)!.length > 0"
+                  >
+                    <span class="font-poppins-700">Chambres :</span>
+                    <span class="font-poppins-700">{{
+                      realEstate?.rooms?.length
+                    }}</span>
+                  </li>
+                  <li
+                    class="font-poppins-400 color-grey icon icon__securite mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.restRooms"
+                  >
+                    <span class="font-poppins-700">SDB :</span>
+                    <span class="dote ps-2 font-poppins-700">{{
+                      realEstate?.restRooms
+                    }}</span>
+                  </li>
+                  <!-- <li
+                    class="font-poppins-400 color-grey icon icon__home mb-2 font-12 ps-4 w-90 text-ellipsis"
+                    *ngIf="realEstate?.interiorEquipments?.length > 0"
+                  >
+                    <span
+                      [ngClass]="{ 'dote ps-2': !first }"
+                      *ngFor="
+                        let equip of realEstate?.interiorEquipments
+                          | slice: 0:3;
+                        let first = first
+                      "
+                    >
+                      {{ equip["number"] }}
+                      {{ equip["equipmentName"] | capitalize }}
+                    </span>
+                  </li> -->
+                  <li
+                    class="font-poppins-400 color-grey icon icon__etage mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.floor"
+                  >
+                    <span class="font-poppins-700">Etage :</span>
+                    {{ realEstate?.floor }}
+                  </li>
+                  <li
+                    class="font-poppins-400 color-grey icon icon__direction mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.direction"
+                  >
+                    <span class="font-poppins-700">Orientation :</span>
+                    {{ realEstate?.direction }}
+                  </li>
+                  <li
+                    class="font-poppins-400 color-grey icon icon__parking mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.parking"
+                  >
+                    <span class="font-poppins-700">Parking :</span>
+                    {{ realEstate?.parking }}
+                    <!-- {{ realEstate?.parking?.toUpperCase() }} -->
+                  </li>
+                </ul>
+                <div class="d-flex" *ngIf="realEstate?.price">
+                  <h2 class="price__main me-2 text-ellipsis">
+                    {{ realEstate?.price | currency : "MAD" }}
+                  </h2>
+                  <!-- <h4 class="price__promotion">1,892,000 MAD</h4> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <app-empty-state-v2
+        *ngIf="(!realStates || realStates!.length === 0) && !loading"
+        [mainClass]="'wrapperProjects'"
+        [secondClass]="'wrapperProjects__new'"
+        [title]="'Biens'"
+        [height]="'40vh'"
+        [description]="'Aucun bien trouvé'"
+        [hasAction]="false"
+      ></app-empty-state-v2>
+    </main>
+  </div>
+</section>

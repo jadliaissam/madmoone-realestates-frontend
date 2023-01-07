@@ -1,0 +1,45 @@
+<div class="bg-white border-radius-8 mb-32 p-3">
+  <div class="d-flex align-items-center justify-content-between mb-0"
+     [ngStyle]="{'margin-bottom.px' : !showFilter ? 26 : null}">
+  <div class="madmoone-block-title-container">
+    <span class="madmoone-block-title">{{title}}</span>
+    <span class="madmoone-block-desc">{{desc}}</span>
+  </div>
+  <div class="d-flex align-items-center">
+    <ng-container *ngIf="showFilter">
+      <button class="bg-dark2 bg-white-to-grey-in-span h-40 main-btn me-10px px-3 me-2" (click)="resetForm()">
+        <span class="icon icon__refresh icon-mask-100-size me-2 pe-3"></span>
+        Réinisialiser
+      </button>
+      <button class="bg-white-to-blue-in-span h-40 main-btn px-3" (click)="showFilter = false">
+        <span class="icon icon__close-circle icon-mask-100-size me-2 pe-3 position-relative top-0" style="right: 0;"></span>
+        Fermer
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!showFilter">
+      <button class="bg-white-to-blue-in-span h-40 main-btn px-3" (click)="showFilter = true">
+        <span class="icon icon-mask-100-size icon__settings me-2 pe-3"></span>
+        Filtre
+      </button>
+    </ng-container>
+  </div>
+</div>
+<div class="filter-sections pt-3" *ngIf="showFilter">
+  <form class="w-100" [formGroup]="filterForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="madmoone-form-group madmoone-form-group-sm mb-0">
+          <label class="madmoone-form-label">unites de Bien</label>
+          <!--                  <input class="form-control madmoone-form-input" placeholder="Filter par Bien">-->
+          <ng-select [items]="propertiesTypes"
+                     placeholder="Filter par Unités de Bien"
+                     formControlName="type"
+                     class="madmoone-form-input">
+            <img src="/assets/img/arrow-down.svg">
+          </ng-select>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+</div>

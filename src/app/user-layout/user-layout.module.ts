@@ -7,13 +7,15 @@ import { UserLayoutRoutingModule } from './user-layout.routing';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LightboxModule } from 'ngx-lightbox';
+import { ProjectRealstatesComponent } from './project-realestates/project-realestates.component';
 
 
 
 @NgModule({
   declarations: [
     UserLayoutComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    ProjectRealstatesComponent
   ],
   imports: [
     CommonModule,

@@ -16,7 +16,7 @@ export interface IProjectUnit {
     area?: number;
     parking?: string;
     direction?: string;
-    _v?: number;
+    _id?: string;
 }
 
 export interface IProject {
@@ -41,6 +41,39 @@ export interface IProject {
     offer: string;
     projectEquipements?: IProjectEquipement[];
     projectUnits?: IProjectUnit[];
-    _v?: number;
+    _id?: string;
 }
 
+
+
+export interface IRealEstate {
+    name: string;
+    description: string;
+    photos : string[];
+    video: string;
+    area: number;
+    floor : number;
+    restRooms : number;
+    parking: string;
+    direction: string;
+    price : number;
+    rooms: IRoom[];
+    _id: string;
+    projectUnit : string;
+}
+
+
+
+export interface IRoom {
+    name: string;
+    area: number;
+    direction: string;
+    mainPhoto: string;
+    equipements: IRoomEquipement[];
+}
+
+export interface IRoomEquipement {
+    name: string;
+    area: number;
+    description: string;
+}

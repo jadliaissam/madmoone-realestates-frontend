@@ -1,5 +1,6 @@
 @import 'assets/css/style.css';
 @import 'assets/font/icomoon/style.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
 
 :root {
     /** COLORS  old variables */
@@ -62,4 +63,178 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .madmoone-form-group .input-group {
+    border: 1px solid #CFD3FF;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: #FAFAFF;
+    height: 48px;
+  }
+  
+  .madmoone-form-group .input-group input {
+    background: transparent;
+    border: 0;
+    box-shadow: none !important;
+    font-size: 14px;
+    line-height: 20px;
+    color: #485563;
+  }
+  
+  .madmoone-form-group .input-group input::placeholder {
+    color: #546080;
+  }
+  
+  .madmoone-form-group .input-group .input-group-prepend .input-group-text {
+    background: transparent;
+    cursor: pointer;
+    border: 0;
+  }
+  
+  .madmoone-form-group.invalid input, .madmoone-form-group.invalid .input-group {
+    border-color: var(--danger-red);
+    color: var(--danger-red);
+  }
+  
+  .madmoone-form-group.invalid .form-error-message {
+    font-size: 10px;
+    width: 100%;
+    text-align: end;
+    color: var(--danger-red);
+  }
+  
+  .madmoone-form-group {
+    margin-bottom: 15px;
+  }
+  
+  .madmoone-form-label {
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  
+  .madmoone-form-input {
+    background: #FAFAFF;
+    border: 1px solid #CFD3FF;
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: inherit;
+    box-shadow: none !important;
+    height: 48px;
+    /*//max-width: 279px;*/
+  }
+  
+  textarea.madmoone-form-input{
+    height: unset;
+  }
+  
+  .madmoone-form-input::placeholder {
+    color: rgba(84, 96, 128, 0.6);
+  }
+  
+  .madmoone-form-group.madmoone-form-group-sm .madmoone-form-label {
+    margin-bottom: 4px;
+  }
+  
+  .madmoone-form-group.madmoone-form-group-sm .madmoone-form-input {
+    padding: 8px;
+    height: 38px;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.25px;
+  }
+  
+  input[type='checkbox'].madmoone-form-input {
+    position: relative;
+    appearance: none;
+    outline: none;
+    transition-duration: 200ms;
+    border-radius: 16px;
+    height: 24px;
+    width: 44px;
+    background: rgba(84, 96, 128, 0.5);
+    border: 0;
+    padding: 0;
+  }
+  
+  input[type='checkbox'].madmoone-form-input:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: #FFFFFF;
+    border: 1px solid #CFD3FF;
+    box-sizing: border-box;
+    box-shadow: 0 8px 24px 2px rgba(54, 59, 100, 0.08);
+    border-radius: 18px;
+    bottom: 0;
+  }
+  
+  input[type='checkbox'].madmoone-form-input:checked {
+    background-color: var(--madmoone-blue-color);
+  }
+  
+  input[type='checkbox'].madmoone-form-input:checked:after {
+    left: 20px;
+    box-shadow: -2px 4px 3px rgba(0, 0, 0, 0.05);
+  }
+  
+  .ng-select.madmoone-form-input,  .madmoone-form-group .ng-select.madmoone-form-input{
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  
+  .ng-select.madmoone-form-input{
+    font-size: 0.75rem;
+    font-family: "Poppins-Regular";
+  }
+  .ng-select.madmoone-form-input .ng-select-container {
+    border: 0;
+    background-color: transparent !important;
+    color: inherit;
+    box-shadow: none !important;
+  }
+  
+  .ng-select.madmoone-form-input .ng-select-container .ng-value-container {
+    padding: 0;
+  }
+  
+  .ng-select.madmoone-form-input .ng-select-container .ng-value-container .ng-placeholder {
+    color: rgba(84, 96, 128, 0.6);
+  }
+  
+  .ng-select.madmoone-form-input.ng-select-single .ng-select-container {
+    height: 100%;
+  }
+  .ng-select.madmoone-form-input-small.ng-select-single {
+    height: 36px;
+  }
+
+  .ng-select.madmoone-form-input-small.ng-select-single .ng-select-container {
+    min-height: 34px;
+  }
+
+  .ng-select.madmoone-form-input.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .ng-select.madmoone-form-input.ng-select-single:not(.madmoone-form-input-small) .ng-select-container .ng-value-container .ng-input {
+    top: 12px;
+  }
+
+  .ng-select.madmoone-form-input.ng-select-multiple .ng-select-container .ng-value-container .ng-value{
+    margin-bottom: 0px;
+  }
+  
+  .ng-select.madmoone-form-input .ng-arrow-wrapper {
+    padding: 0;
+    width: 16px;
   }

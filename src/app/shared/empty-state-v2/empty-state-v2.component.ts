@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class EmptyStateV2Component implements OnInit {
 
   @Input() public mainClass = '';
+  @Input() height = '70vh';
   @Input() secondClass = '';
   @Input() title = '';
   @Input() description = '';

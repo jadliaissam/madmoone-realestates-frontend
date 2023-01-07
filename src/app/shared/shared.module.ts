@@ -11,6 +11,9 @@ import { SafeHtmlPipe } from './all.pipe';
 import { ShareNetworkComponent } from './share-network/share-network.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
+import { RealstatesFilterComponent } from './realstates-filter/realstates-filter.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,8 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     ImagePreloadDirective,
     LazyImgDirective,
     SafeHtmlPipe,
-    ShareNetworkComponent
+    ShareNetworkComponent,
+    RealstatesFilterComponent
   ],
   exports: [
     HeaderComponent,
@@ -32,8 +36,10 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
     ImagePreloadDirective,
     LazyImgDirective,
     SafeHtmlPipe,
-    ShareNetworkComponent
+    ShareNetworkComponent,
+    RealstatesFilterComponent,
+    NgSelectModule, FormsModule, ReactiveFormsModule
   ],
-  imports: [CommonModule, NgxSpinnerModule, ShareButtonsModule],
+  imports: [CommonModule, NgxSpinnerModule, ShareButtonsModule, NgSelectModule, FormsModule, ReactiveFormsModule],
 })
 export class SharedModule {}

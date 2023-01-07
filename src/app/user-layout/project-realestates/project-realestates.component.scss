@@ -1,0 +1,163 @@
+
+  .filter-sections {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background: var(--grey-light-color);
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+
+  .project-property-recap {
+    padding: 8px;
+    background: var(--white);
+    box-shadow: 0px 8px 24px 2px rgba(54, 59, 100, 0.08);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 16px;
+
+    .property-recap-image-container {
+      min-height: 230px;
+      margin-right: 24px;
+      min-width: 200.5px;
+      max-width: 200.5px;
+      background-color: var(--grey-light-color);
+      max-height: 100%;
+      height: 100%;
+
+      img {
+        max-height: inherit;
+        min-height: inherit;
+        max-width: 100%;
+        min-width: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+    }
+
+    .property-recap-infos-container {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      width: calc(100% - 255px);
+      position: relative;
+
+      .madmoone-options-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+      .tooltipMAdmoune {
+        inset: unset !important;
+        right: 0 !important;
+        top: 1rem !important;
+        border: 0;
+      }
+      .property-price-from {
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 8px;
+      }
+
+      .property-prices-container {
+        position: relative;
+        margin-bottom: 8px;
+
+        .current-price {
+          font-weight: 600;
+          font-size: 18px;
+          color: var(--madmoone-blue-color);
+          line-height: 170%;
+        }
+
+        .old-price {
+          position: absolute;
+          right: 35px;
+          top: 0;
+          font-size: 11px;
+          line-height: 17px;
+          text-decoration-line: line-through;
+          color: #c54040;
+        }
+      }
+
+      .property-caracs {
+        .property-section-title {
+          font-size: 14px;
+          line-height: 24px;
+          margin-bottom: 8px;
+          font-weight: 400;
+          display: block;
+        }
+
+        .property-icon-value {
+          display: flex;
+          align-items: center;
+          margin-bottom: 1px;
+          font-size: 12px;
+
+          img {
+            margin-right: 8px;
+            height: 24px;
+            width: 24px;
+            padding: 3px;
+          }
+        }
+      }
+    }
+  }
+
+
+  .sidebar-short-info {
+    height: 94px;
+    width: 94px;
+    border-radius: 50%;
+    background-color: #d9d6fb;
+    font-size: 50.7086px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    &.flat {
+      border-radius: 8px;
+      height: 100%;
+      width: 100%;
+    }
+    &.no-bg {
+      background-color: unset;
+    }
+  }
+
+  // filter
+  .filter-sections {
+    display: flex;
+    align-items: center;
+  }
+  
+  .madmoone-fixed-alert .madmoone-block-title-container {
+    max-width: 100%;
+  }
+  
+  .madmoone-block-title-container {
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 16px;
+    color: var(--gray-color);
+    width: 100%;
+    letter-spacing: 0.4px;
+  }
+  
+  .madmoone-block-title-container .madmoone-block-title {
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--madmoone-blue-color);
+    margin-bottom: 4px;
+    display: block;
+    letter-spacing: 0.25px;
+  }
+  
+  .madmoone-block-title-container .madmoone-block-desc {
+    opacity: 0.87;
+  }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { ProjectRealstatesComponent } from './project-realestates/project-realestates.component';
 import { UserLayoutComponent } from './user-layout.component';
 
 const routes: Routes = [
@@ -12,12 +13,16 @@ const routes: Routes = [
                 path: '',
                 component : ProjectDetailComponent
             },
+            {
+                path: 'realestates',
+                component : ProjectRealstatesComponent
+            },
         ]
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class UserLayoutRoutingModule { }

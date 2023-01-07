@@ -1,0 +1,30 @@
+.filter-sections {
+    display: flex;
+    align-items: center;
+  }
+  
+  .madmoone-fixed-alert .madmoone-block-title-container {
+    max-width: 100%;
+  }
+  
+  .madmoone-block-title-container {
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 16px;
+    color: var(--gray-color);
+    width: 100%;
+    letter-spacing: 0.4px;
+  }
+  
+  .madmoone-block-title-container .madmoone-block-title {
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--madmoone-blue-color);
+    margin-bottom: 4px;
+    display: block;
+    letter-spacing: 0.25px;
+  }
+  
+  .madmoone-block-title-container .madmoone-block-desc {
+    opacity: 0.87;
+  }
