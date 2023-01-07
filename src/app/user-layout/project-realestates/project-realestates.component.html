@@ -81,6 +81,7 @@
                   <ng-select
                     [items]="projectUnits"
                     (change)=filter()
+                    [loading]="loadingUnits"
                     bindLabel="name"
                     [clearable]="true"
                     [multiple]="true"

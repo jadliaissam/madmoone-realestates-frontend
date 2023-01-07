@@ -47,7 +47,6 @@ ngOnInit(): void {
         if(params['unitId']){
           this.selectedProjectUnitId = params['unitId'];
           this.showFilter = true;
-          this.filterForm.get('unites')?.setValue([this.selectedProjectUnitId]);
         }
       }
     );
@@ -83,6 +82,9 @@ ngOnInit(): void {
       (data: Array<IProjectUnit>) => {
         this.loadingUnits = false;
         this.projectUnits = data;
+        if(this.selectedProjectUnitId){
+          this.filterForm.get('unites')?.setValue([this.selectedProjectUnitId]);
+        }
         console.log('units', this.projectUnits);
         // this.propertiesReserved = this.realStates;
       },
@@ -106,7 +108,8 @@ ngOnInit(): void {
   filter(){
     // filter realstates using units
     const units = this.filterForm.get('unites')?.value;
-    if(units.length === 0){
+    console.log('units', units);
+    if(!units || units.length === 0){
       this.realStates = [...this.allRealStates];
       return;
     }

@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  OnDestroy,
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
@@ -22,7 +23,9 @@ import { IProject } from 'src/app/entities/all.entity';
   styleUrls: ['./project-detail.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class ProjectDetailComponent implements OnInit, AfterViewInit {
+export class ProjectDetailComponent
+  implements OnInit, AfterViewInit, OnDestroy
+{
   public loading = false;
   map: any;
   project: IProject | null = null;
@@ -104,6 +107,7 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
   }
   async ngAfterViewInit(): Promise<void> {
     this.map = await loadMap(this.map, false, 'map');
+    this.map?.invalidateSize();
     setTimeout(() => {
       this.map?.invalidateSize();
     }, 800);
@@ -114,5 +118,12 @@ export class ProjectDetailComponent implements OnInit, AfterViewInit {
 
   close(): void {
     this._lightbox.close();
+  }
+
+  ngOnDestroy(): void {
+    if (this.map) {
+      this.map?.off();
+      this.map?.remove();
+    }
   }
 }
