@@ -8,6 +8,7 @@ import { ProjectDetailComponent } from './project-detail/project-detail.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LightboxModule } from 'ngx-lightbox';
 import { ProjectRealstatesComponent } from './project-realestates/project-realestates.component';
+import { UnitDetailsComponent } from './unit-details/unit-details.component';
 
 
 
@@ -15,7 +16,8 @@ import { ProjectRealstatesComponent } from './project-realestates/project-reales
   declarations: [
     UserLayoutComponent,
     ProjectDetailComponent,
-    ProjectRealstatesComponent
+    ProjectRealstatesComponent,
+    UnitDetailsComponent
   ],
   imports: [
     CommonModule,

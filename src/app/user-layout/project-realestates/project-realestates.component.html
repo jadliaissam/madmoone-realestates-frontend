@@ -154,14 +154,32 @@
                     }}</span>
                   </li>
                   <li
+                    class="font-poppins-400 color-grey icon icon__ascenseur mb-2 font-12 ps-4 text-ellipsis"
+                    *ngIf="realEstate?.salons"
+                  >
+                    <span class="font-poppins-700">Salons :</span>
+                    <span class="font-poppins-700">{{
+                      realEstate?.salons
+                    }}</span>
+                  </li>
+                  <li
                     class="font-poppins-400 color-grey icon icon__securite mb-2 font-12 ps-4 text-ellipsis"
                     *ngIf="realEstate?.restRooms"
                   >
                     <span class="font-poppins-700">SDB :</span>
-                    <span class="dote ps-2 font-poppins-700">{{
+                    <span class="font-poppins-700">{{
                       realEstate?.restRooms
                     }}</span>
                   </li>
+                  <li
+                  class="font-poppins-400 color-grey icon icon__balcon mb-2 font-12 ps-4 text-ellipsis"
+                  *ngIf="realEstate?.balcony"
+                >
+                  <span class="font-poppins-700">Balcon :</span>
+                  <span class="font-poppins-700">{{
+                    realEstate?.balcony
+                  }}</span>
+                </li>
                   <!-- <li
                     class="font-poppins-400 color-grey icon icon__home mb-2 font-12 ps-4 w-90 text-ellipsis"
                     *ngIf="realEstate?.interiorEquipments?.length > 0"

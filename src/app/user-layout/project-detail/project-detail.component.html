@@ -6,13 +6,19 @@
   <div class="main">
     <main>
       <div class="right-part__wrapper d-flex flex-column">
-        <!-- ====== START Previous and btn add to favorer ====== -->
-        <div
-          class="d-flex justify-content-between align-items-center mb-4 ms-2 fw-semibold color-default"
-        >
-          Détail de projet
+        <div class="d-flex align-items-center mb-4">
+          <img
+            [src]="apiLink + project?.icon || ''"
+            default="/assets/img/building-image-error.png"
+            class="imgPromoteur border-radius-50"
+            alt=""
+          />
+          <div class="d-flex flex-column mx-3">
+            <h4 class="font-poppins-700 font-16 color-grey">
+              {{ project?.name || "" }}
+            </h4>
+          </div>
         </div>
-        <!-- ====== END Previous and btn add to favorer ====== -->
         <div
           class="pswp-gallery mb20"
           id="my-gallery"
@@ -43,37 +49,15 @@
             </div>
           </div>
         </div>
-        <div class="d-flex align-items-center mb-3">
-          <img
-            [src]="apiLink + project?.icon || ''"
-            default="/assets/img/building-image-error.png"
-            class="imgPromoteur border-radius-50"
-            alt=""
-          />
-          <div class="d-flex flex-column mx-3">
-            <h4 class="font-poppins-700 font-16 color-grey">
-              {{ project?.name || "" }}
-            </h4>
-          </div>
-        </div>
         <ul
           ngbNav
           #nav="ngbNav"
           class="nav-tabs border-0"
           [destroyOnHide]="false"
         >
-          <li [ngbNavItem]="1">
+          <li [ngbNavItem]="1" [style]="{ flex: 1 }">
             <a ngbNavLink>Accueil</a>
             <ng-template ngbNavContent>
-              <div class="mb-3">
-                <div
-                  class="project-map border-radius-8"
-                  [ngClass]="{
-                    'no-map': !project?.longitude || !project?.latitude
-                  }"
-                  id="map"
-                ></div>
-              </div>
               <div
                 class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
               >
@@ -92,7 +76,7 @@
                     [innerHTML]="project?.description | safeHtml"
                     class="font-12 color-grey3"
                   ></p>
-                  <ul class="d-flex property-project mb-3 flex-wrap">
+                  <!-- <ul class="d-flex property-project mb-3 flex-wrap">
                     <li
                       class="d-flex flex-column icon icon__bigproject flex-wrap"
                       *ngIf="project?.type"
@@ -145,12 +129,12 @@
                         project?.state
                       }}</span>
                     </li>
-                  </ul>
+                  </ul> -->
                 </div>
                 <div
                   class="tabsContent__description--right d-flex flex-column border-radius-8 bg-grey py-3 px-2"
                 >
-                  <h3 class="font-14 font-poppins-400 color-default mb-3">
+                  <h3 class="font-14 font-poppins-400 color-default mb-3 ms-2">
                     Informations générales
                   </h3>
                   <ul>
@@ -222,6 +206,15 @@
                       href="{{ project?.whatsapp }}"
                     ></a>
                   </div>
+                  <div class="mt-3">
+                    <div
+                      class="project-map border-radius-8"
+                      [ngClass]="{
+                        'no-map': !project?.longitude || !project?.latitude
+                      }"
+                      id="map"
+                    ></div>
+                  </div>
                 </div>
               </div>
               <h2
@@ -236,6 +229,7 @@
               <div class="d-flex flex-wrap equipments__project mb-5 row g-3">
                 <div
                   *ngFor="let equi of project?.projectEquipements"
+                  (click)="openModal(equi)"
                   class="col-12 col-sm-6 col-md-4 col-lg-3"
                 >
                   <span
@@ -263,7 +257,7 @@
                     Unités dans ce Projet
                   </h2>
                 </ng-container>
-                <div class="row mb-5">
+                <div class="row mb-3">
                   <div
                     class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
                     *ngFor="let unit of project?.projectUnits"
@@ -341,14 +335,14 @@
                                   >{{ unit?.salons }} salon</span
                                 >
                               </div>
-                              <div
+                              <!-- <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.floor"
                               >
                                 <span class="caractere__item icon icon__etage"
                                   >étage : {{ unit?.floor }}</span
                                 >
-                              </div>
+                              </div> -->
                               <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.restRooms"
@@ -364,7 +358,7 @@
                         <ul class="caractere__list half_in_2 mb-4">
                           <li>
                             <div class="row gy-2 w-100">
-                              <div
+                              <!-- <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.direction"
                               >
@@ -372,7 +366,7 @@
                                   class="caractere__item icon icon__direction"
                                   >Exposition {{ unit?.direction }}</span
                                 >
-                              </div>
+                              </div> -->
                               <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.area"
@@ -393,17 +387,16 @@
                           </li>
                         </ul>
                         <a
-                          [routerLink]="['/realestates']"
-                          [queryParams]="{ unitId: unit?._id }"
+                          [routerLink]="['/units', unit?._id]"
                           class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                          >Voir les biens dans cette unite</a
+                          >Voir plus details</a
                         >
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="d-flex justify-content-center mb-5">
+              <!-- <div class="d-flex justify-content-center mb-5">
                 <button
                   class="main-btn bg-white h-40"
                   style="width: 388px"
@@ -411,11 +404,11 @@
                 >
                   Voir plus de biens
                 </button>
-              </div>
+              </div> -->
               <app-share-network></app-share-network>
             </ng-template>
           </li>
-          <li [ngbNavItem]="2" *ngIf="project?.video">
+          <li [ngbNavItem]="2" *ngIf="project?.video" [style]="{ flex: 1 }">
             <a ngbNavLink>Vidéo</a>
             <ng-template ngbNavContent>
               <div
@@ -454,6 +447,7 @@
           </li>
           <li
             [ngbNavItem]="3"
+            [style]="{ flex: 1 }"
             *ngIf="project?.photos && (project?.photos)!.length > 0"
           >
             <a ngbNavLink>Photos</a>

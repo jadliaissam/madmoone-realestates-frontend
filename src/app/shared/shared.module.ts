@@ -14,6 +14,7 @@ import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { RealstatesFilterComponent } from './realstates-filter/realstates-filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { EquipementModalComponent } from './equipement-modal/equipement-modal.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     LazyImgDirective,
     SafeHtmlPipe,
     ShareNetworkComponent,
-    RealstatesFilterComponent
+    RealstatesFilterComponent,
+    EquipementModalComponent,
   ],
   exports: [
     HeaderComponent,
@@ -38,6 +40,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SafeHtmlPipe,
     ShareNetworkComponent,
     RealstatesFilterComponent,
+    EquipementModalComponent,
     NgSelectModule, FormsModule, ReactiveFormsModule
   ],
   imports: [CommonModule, NgxSpinnerModule, ShareButtonsModule, NgSelectModule, FormsModule, ReactiveFormsModule],

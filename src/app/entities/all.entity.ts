@@ -2,6 +2,7 @@
 export interface IProjectEquipement {
     name?: string;
     icon?: string;
+    description?: string;
 }
 
 export interface IProjectUnit {
@@ -10,13 +11,17 @@ export interface IProjectUnit {
     priceMin?: number;
     balcony?: number;
     rooms?: number;
-    floor ?: number;
+    // floor ?: number;
     salons?: number;
     restRooms ?: number;
     area?: number;
     parking?: string;
-    direction?: string;
-    _id?: string;
+    // direction?: string;
+    _id: string;
+    description?: string;
+    photos ?: string[];
+    video?: string;
+
 }
 
 export interface IProject {
@@ -53,8 +58,10 @@ export interface IRealEstate {
     video: string;
     area: number;
     floor : number;
+    salons : number;
     restRooms : number;
     parking: string;
+    balcony: number;
     direction: string;
     price : number;
     rooms: IRoom[];
@@ -73,7 +80,8 @@ export interface IRoom {
 }
 
 export interface IRoomEquipement {
-    name: string;
-    area: number;
-    description: string;
+    name?: string;
+    area?: number;
+    icon?: string;
+    description?: string;
 }

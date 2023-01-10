@@ -42,4 +42,11 @@ export class ProjectService {
   getAllRealEstatesByProjectIdAndUnitsArray(){
     return this.apiService.post(`${this.projectApiUrl}${this.currentProject!._id}/${this.realEstatesApiUrl}`).pipe(first()).toPromise();
   }
+
+  async getProjectUnitByPorjectIDAndUnitID(unitID: string) {
+    if(!this.currentProject) {
+      await this.getUserMainProject().toPromise();
+    };
+    return this.apiService.get(`project-unit/${unitID}`).pipe(first()).toPromise();
+  }
 }
