@@ -15,6 +15,7 @@ import { RealstatesFilterComponent } from './realstates-filter/realstates-filter
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { EquipementModalComponent } from './equipement-modal/equipement-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { EquipementModalComponent } from './equipement-modal/equipement-modal.co
     ShareNetworkComponent,
     RealstatesFilterComponent,
     EquipementModalComponent,
-    FilterPipe
+    FilterPipe,
   ],
   exports: [
     HeaderComponent,
@@ -43,8 +44,19 @@ import { EquipementModalComponent } from './equipement-modal/equipement-modal.co
     ShareNetworkComponent,
     RealstatesFilterComponent,
     EquipementModalComponent,
-    NgSelectModule, FormsModule, ReactiveFormsModule
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule
   ],
-  imports: [CommonModule, NgxSpinnerModule, ShareButtonsModule, NgSelectModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    NgxSpinnerModule,
+    ShareButtonsModule,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    TranslateModule
+  ],
 })
 export class SharedModule {}

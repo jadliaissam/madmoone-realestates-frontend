@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
   title = 'madmoone-realestates-frontend';
 
-  constructor(private modalService: NgbModal) {
-  }
+  constructor(translate: TranslateService) {
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('en');
 
-  public open(modal: any): void {
-    this.modalService.open(modal);
-  }
+     // the lang to use, if the lang isn't available, it will use the current loader to get them
+    translate.use('fr');
+}
+
 }

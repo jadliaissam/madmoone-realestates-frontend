@@ -50,10 +50,31 @@
       </nav> -->
       <div class="header__right d-flex align-items-center">
         <div class="language">
-          <select class="selectBox" style="display: none">
+          <!-- <select class="selectBox" style="display: none">
             <option value="1" selected="selected">FR</option>
             <option value="2">EN</option>
-          </select>
+          </select> -->
+          <ng-select
+          [items]="languages"
+          (change)=changeLanguage()
+          [clearable]="false"
+          [searchable]="false"
+          bindValue="code"
+          [(ngModel)]="selectedLanguage"
+          class="select-language"
+          placeholder="la langue"
+        >
+        <!-- add icon and name for label and option -->
+        <ng-template ng-label-tmp ng-option-tmp let-item="item">
+          <div class="d-flex align-items-center justify-content-center">
+            <img
+              [src]="item.icon"
+              class="me-2 flag-img"
+            />
+            {{item.name | translate}}
+          </div>
+        </ng-template>
+        </ng-select>
         </div>
         <div class="menuBurger">
           <span></span>

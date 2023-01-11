@@ -44,7 +44,7 @@
                 class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
                 style="z-index: 1"
                 ><span class="pe-1">{{ _albums.length - 4 }}</span
-                ><span class="d-none d-sm-inline">autres photos</span></span
+                ><span class="d-none d-sm-inline">{{'OTHERS_PHOTOS' | translate}}</span></span
               >
             </div>
           </div>
@@ -56,7 +56,7 @@
           [destroyOnHide]="false"
         >
           <li [ngbNavItem]="1" [style]="{ flex: 1 }">
-            <a ngbNavLink>Accueil</a>
+            <a ngbNavLink>{{'HOME' | translate}}</a>
             <ng-template ngbNavContent>
               <div
                 class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
@@ -69,7 +69,7 @@
                     {{ project?.name }}
                   </h3>
                   <h4 class="font-12 font-poppins-400 color-grey mb-2">
-                    Déscription
+                    {{'DESCRIPTION' | translate}}
                   </h4>
                   <p
                     *ngIf="project?.description"
@@ -135,7 +135,7 @@
                   class="tabsContent__description--right d-flex flex-column border-radius-8 bg-grey py-3 px-2"
                 >
                   <h3 class="font-14 font-poppins-400 color-default mb-3 ms-2">
-                    Informations générales
+                    {{'GENERAL_INFO' | translate}}
                   </h3>
                   <ul>
                     <li
@@ -224,7 +224,7 @@
                   (project?.projectEquipements)!.length > 0
                 "
               >
-                Equipements projet
+              {{'PROJECT_EQUIPMENT' | translate}}
               </h2>
               <div class="d-flex flex-wrap equipments__project mb-5 row g-3">
                 <div
@@ -255,7 +255,7 @@
                   <h2
                     class="color-default font-poppins-400 font-16 text-capitalize mb-3"
                   >
-                    Appartements dans ce Projet
+                  {{'APARTMENTS_IN_THIS_PROJECT' | translate}}
                   </h2>
                 <div class="row mb-3">
                   <div
@@ -292,7 +292,7 @@
                           *ngIf="unit?.priceMin"
                         >
                           <span class="font-poppins-400 font-14 color-grey mb-2"
-                            >À partir de</span
+                            >{{'FROM' | translate}}</span
                           >
                           <div
                             class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
@@ -305,7 +305,7 @@
                           </div>
                         </div>
                         <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                          Caractéristiques du projet
+                          {{'CHARACTERISTICS_OF_THE_PROPERTY' | translate}}
                         </h3>
                         <ul class="caractere__list half_in_2 mb-4">
                           <li>
@@ -315,7 +315,7 @@
                                 *ngIf="unit?.balcony"
                               >
                                 <span class="caractere__item icon icon__balcon"
-                                  >{{ unit?.balcony }} Balcon</span
+                                  >{{ unit?.balcony }} {{'BALCONY' | translate}}</span
                                 >
                               </div>
                               <div
@@ -323,7 +323,7 @@
                                 *ngIf="unit?.rooms && unit?.rooms!.length > 0"
                               >
                                 <span class="caractere__item icon icon__chambre"
-                                  >{{ unit?.rooms?.length }} Chambres</span
+                                  >{{ unit?.rooms?.length }} {{'ROOMS' | translate}}</span
                                 >
                               </div>
                               <div
@@ -332,7 +332,7 @@
                               >
                                 <span
                                   class="caractere__item icon icon__ascenseur"
-                                  >{{ unit?.salons }} salon</span
+                                  >{{ unit?.salons }} {{'SALON' | translate}}</span
                                 >
                               </div>
                               <!-- <div
@@ -349,7 +349,7 @@
                               >
                                 <span
                                   class="caractere__item icon icon__securite"
-                                  >{{ unit?.restRooms }} SDB</span
+                                  >{{ unit?.restRooms }} {{'BATHROOM_SHORT' | translate}}</span
                                 >
                               </div>
                             </div>
@@ -372,7 +372,7 @@
                                 *ngIf="unit?.area"
                               >
                                 <span class="caractere__item icon icon__surface"
-                                  >Superficie {{ unit?.area }} m2</span
+                                  >{{'AREA' | translate}} {{ unit?.area }} m2</span
                                 >
                               </div>
                               <div
@@ -380,7 +380,7 @@
                                 *ngIf="unit?.parking"
                               >
                                 <span class="caractere__item icon icon__parking"
-                                  >Parking : {{ unit?.parking }}</span
+                                  >{{'CAR_PARK' | translate}} : {{ unit?.parking }}</span
                                 >
                               </div>
                             </div>
@@ -389,7 +389,7 @@
                         <a
                           [routerLink]="['/units', unit?._id]"
                           class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                          >Voir plus details</a
+                          >{{'SEE_MORE_DETAILS' | translate}}</a
                         >
                       </div>
                     </div>
@@ -408,7 +408,7 @@
                   <h2
                     class="color-default font-poppins-400 font-16 text-capitalize mb-3"
                   >
-                    Bureaux dans ce Projet
+                  {{'OFFICES_IN_THIS_PROJECT' | translate}}
                   </h2>
                 <div class="row mb-3">
                   <div
@@ -445,7 +445,7 @@
                           *ngIf="unit?.priceMin"
                         >
                           <span class="font-poppins-400 font-14 color-grey mb-2"
-                            >À partir de</span
+                            >{{'FROM' | translate}}</span
                           >
                           <div
                             class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
@@ -458,7 +458,7 @@
                           </div>
                         </div>
                         <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                          Caractéristiques du projet
+                          {{'CHARACTERISTICS_OF_THE_PROPERTY' | translate}}
                         </h3>
                         <ul class="caractere__list half_in_2 mb-4">
                           <li>
@@ -468,7 +468,7 @@
                                 *ngIf="unit?.balcony"
                               >
                                 <span class="caractere__item icon icon__balcon"
-                                  >{{ unit?.balcony }} Balcon</span
+                                  >{{ unit?.balcony }} {{'BALCONY' | translate}}</span
                                 >
                               </div>
                               <div
@@ -476,7 +476,7 @@
                                 *ngIf="unit?.rooms && unit?.rooms!.length > 0"
                               >
                                 <span class="caractere__item icon icon__chambre"
-                                  >{{ unit?.rooms?.length }} Chambres</span
+                                  >{{ unit?.rooms?.length }} {{'ROOMS' | translate}}</span
                                 >
                               </div>
                               <div
@@ -485,7 +485,7 @@
                               >
                                 <span
                                   class="caractere__item icon icon__ascenseur"
-                                  >{{ unit?.salons }} salon</span
+                                  >{{ unit?.salons }} {{'SALON' | translate}}</span
                                 >
                               </div>
                               <!-- <div
@@ -502,7 +502,7 @@
                               >
                                 <span
                                   class="caractere__item icon icon__securite"
-                                  >{{ unit?.restRooms }} SDB</span
+                                  >{{ unit?.restRooms }} {{'BATHROOM_SHORT' | translate}}</span
                                 >
                               </div>
                             </div>
@@ -525,7 +525,7 @@
                                 *ngIf="unit?.area"
                               >
                                 <span class="caractere__item icon icon__surface"
-                                  >Superficie {{ unit?.area }} m2</span
+                                  >{{'AREA' | translate}} {{ unit?.area }} m2</span
                                 >
                               </div>
                               <div
@@ -533,7 +533,7 @@
                                 *ngIf="unit?.parking"
                               >
                                 <span class="caractere__item icon icon__parking"
-                                  >Parking : {{ unit?.parking }}</span
+                                  >{{'CAR_PARK' | translate}} : {{ unit?.parking }}</span
                                 >
                               </div>
                             </div>
@@ -542,7 +542,7 @@
                         <a
                           [routerLink]="['/units', unit?._id]"
                           class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                          >Voir plus details</a
+                          >{{'SEE_MORE_DETAILS' | translate}}</a
                         >
                       </div>
                     </div>
@@ -563,7 +563,7 @@
             </ng-template>
           </li>
           <li [ngbNavItem]="2" *ngIf="project?.video" [style]="{ flex: 1 }">
-            <a ngbNavLink>Vidéo</a>
+            <a ngbNavLink>{{'VIDEO' | translate}}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -576,7 +576,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                      Vidéo du projet
+                    {{'PROJECT_VIDEO' | translate}}
                     </h2>
                   </div>
                   <ul
@@ -604,7 +604,7 @@
             [style]="{ flex: 1 }"
             *ngIf="project?.photos && (project?.photos)!.length > 0"
           >
-            <a ngbNavLink>Photos</a>
+            <a ngbNavLink>{{'PHOTOS' | translate}}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -617,7 +617,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                      Photos du projet
+                      {{'PROJECT_PHOTOS' | translate}}
                     </h2>
                     <div class="d-flex justify-content-between switch-display">
                       <button
@@ -666,7 +666,7 @@
   *ngIf="!project && !loading"
   [mainClass]="'wrapperProjects'"
   [secondClass]="'wrapperProjects__new'"
-  [title]="'Projets'"
-  [description]="'Aucun projet trouvé'"
+  [title]="'PROJECTS' | translate"
+  [description]="'NO_PROJECT_FOUND' | translate"
   [hasAction]="false"
 ></app-empty-state-v2>
