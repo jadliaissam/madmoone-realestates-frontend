@@ -7,7 +7,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { EmptyStateV2Component } from './empty-state-v2/empty-state-v2.component';
 import { ImagePreloadDirective } from './image-preload.directive';
 import { LazyImgDirective } from './lazy-loading.directive';
-import { SafeHtmlPipe } from './all.pipe';
+import { FilterPipe, SafeHtmlPipe } from './all.pipe';
 import { ShareNetworkComponent } from './share-network/share-network.component';
 import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
@@ -28,6 +28,7 @@ import { EquipementModalComponent } from './equipement-modal/equipement-modal.co
     ShareNetworkComponent,
     RealstatesFilterComponent,
     EquipementModalComponent,
+    FilterPipe
   ],
   exports: [
     HeaderComponent,
@@ -38,6 +39,7 @@ import { EquipementModalComponent } from './equipement-modal/equipement-modal.co
     ImagePreloadDirective,
     LazyImgDirective,
     SafeHtmlPipe,
+    FilterPipe,
     ShareNetworkComponent,
     RealstatesFilterComponent,
     EquipementModalComponent,

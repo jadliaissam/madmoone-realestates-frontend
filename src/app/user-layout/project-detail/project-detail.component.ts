@@ -61,7 +61,6 @@ export class ProjectDetailComponent
         this.project = data;
         this.loading = false;
         if (this.project) {
-          console.log(this.project);
           if (this.project?.photos) {
             this.project.photos.forEach((image) => {
               const src = this.apiLink + image;
@@ -82,6 +81,7 @@ export class ProjectDetailComponent
           ) {
             this.addProjectMarker();
           }
+          
         }
       },
       (error) => {

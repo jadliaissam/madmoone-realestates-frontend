@@ -15,7 +15,7 @@
           />
           <div class="d-flex flex-column mx-3">
             <h4 class="font-poppins-700 font-16 color-grey">
-              {{ project?.name || "" }}
+              {{ (project?.name | uppercase) || "" }}
             </h4>
           </div>
         </div>
@@ -244,23 +244,23 @@
                 </div>
               </div>
 
-              <hr class="mb-4" />
+              <ng-container
+              *ngIf="
+              project?.projectUnits && (project!.projectUnits! | filter:{type:'APPARTEMENT'}) && (project?.projectUnits! | filter:{type:'APPARTEMENT'})!.length > 0
+              "
+            >
               <div class="d-flex justify-content-between flex-column mb-3">
-                <ng-container
-                  *ngIf="
-                    project?.projectUnits && (project?.projectUnits)!.length > 0
-                  "
-                >
+                <hr class="mb-4" />
+               
                   <h2
                     class="color-default font-poppins-400 font-16 text-capitalize mb-3"
                   >
-                    Unités dans ce Projet
+                    Appartements dans ce Projet
                   </h2>
-                </ng-container>
                 <div class="row mb-3">
                   <div
                     class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
-                    *ngFor="let unit of project?.projectUnits"
+                    *ngFor="let unit of project?.projectUnits! | filter:{type:'APPARTEMENT'}"
                   >
                     <div class="product shadow">
                       <div class="picture">
@@ -396,6 +396,160 @@
                   </div>
                 </div>
               </div>
+            </ng-container>
+            <ng-container
+              *ngIf="
+              project?.projectUnits && (project!.projectUnits! | filter:{type:'OFFICE'})!.length > 0
+              "
+            >
+              <div class="d-flex justify-content-between flex-column mb-3">
+                <hr class="mb-4" />
+               
+                  <h2
+                    class="color-default font-poppins-400 font-16 text-capitalize mb-3"
+                  >
+                    Bureaux dans ce Projet
+                  </h2>
+                <div class="row mb-3">
+                  <div
+                    class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
+                    *ngFor="let unit of project?.projectUnits! | filter:{type:'OFFICE'}"
+                  >
+                    <div class="product shadow">
+                      <div class="picture">
+                        <img
+                          [src]="apiLink + unit?.mainPhoto"
+                          class="border-bottom"
+                          default="/assets/img/building.svg"
+                          alt="image Unité"
+                        />
+                      </div>
+                      <div class="content">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-4"
+                        >
+                          <div>
+                            <h3
+                              class="font-poppins-700 color-grey font-14"
+                              *ngIf="unit?.name"
+                            >
+                              {{ unit?.name }}
+                            </h3>
+                            <!-- <span class="color-default font-12 font-poppins-400"
+                              >code 763536</span
+                            > -->
+                          </div>
+                        </div>
+                        <div
+                          class="price__wrapper d-flex flex-column mb-3"
+                          *ngIf="unit?.priceMin"
+                        >
+                          <span class="font-poppins-400 font-14 color-grey mb-2"
+                            >À partir de</span
+                          >
+                          <div
+                            class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                          >
+                            <div>
+                              <h2 class="price__main">
+                                {{ unit.priceMin | currency : "MAD" }}
+                              </h2>
+                            </div>
+                          </div>
+                        </div>
+                        <h3 class="font-poppins-500 font-14 color-grey mb-4">
+                          Caractéristiques du projet
+                        </h3>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <div class="row gy-2 w-100">
+                              <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.balcony"
+                              >
+                                <span class="caractere__item icon icon__balcon"
+                                  >{{ unit?.balcony }} Balcon</span
+                                >
+                              </div>
+                              <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.rooms && unit?.rooms!.length > 0"
+                              >
+                                <span class="caractere__item icon icon__chambre"
+                                  >{{ unit?.rooms?.length }} Chambres</span
+                                >
+                              </div>
+                              <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.salons"
+                              >
+                                <span
+                                  class="caractere__item icon icon__ascenseur"
+                                  >{{ unit?.salons }} salon</span
+                                >
+                              </div>
+                              <!-- <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.floor"
+                              >
+                                <span class="caractere__item icon icon__etage"
+                                  >étage : {{ unit?.floor }}</span
+                                >
+                              </div> -->
+                              <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.restRooms"
+                              >
+                                <span
+                                  class="caractere__item icon icon__securite"
+                                  >{{ unit?.restRooms }} SDB</span
+                                >
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                        <ul class="caractere__list half_in_2 mb-4">
+                          <li>
+                            <div class="row gy-2 w-100">
+                              <!-- <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.direction"
+                              >
+                                <span
+                                  class="caractere__item icon icon__direction"
+                                  >Exposition {{ unit?.direction }}</span
+                                >
+                              </div> -->
+                              <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.area"
+                              >
+                                <span class="caractere__item icon icon__surface"
+                                  >Superficie {{ unit?.area }} m2</span
+                                >
+                              </div>
+                              <div
+                                class="col-12 col-md-6 text-ellipsis"
+                                *ngIf="unit?.parking"
+                              >
+                                <span class="caractere__item icon icon__parking"
+                                  >Parking : {{ unit?.parking }}</span
+                                >
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                        <a
+                          [routerLink]="['/units', unit?._id]"
+                          class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
+                          >Voir plus details</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
               <!-- <div class="d-flex justify-content-center mb-5">
                 <button
                   class="main-btn bg-white h-40"
