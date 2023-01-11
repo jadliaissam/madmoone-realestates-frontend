@@ -320,10 +320,10 @@
                               </div>
                               <div
                                 class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.rooms"
+                                *ngIf="unit?.rooms && unit?.rooms!.length > 0"
                               >
                                 <span class="caractere__item icon icon__chambre"
-                                  >{{ unit?.rooms }} Chambres</span
+                                  >{{ unit?.rooms?.length }} Chambres</span
                                 >
                               </div>
                               <div

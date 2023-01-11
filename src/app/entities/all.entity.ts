@@ -10,7 +10,7 @@ export interface IProjectUnit {
     name ?: string;
     priceMin?: number;
     balcony?: number;
-    rooms?: number;
+    rooms?: IRoom[];
     // floor ?: number;
     salons?: number;
     restRooms ?: number;

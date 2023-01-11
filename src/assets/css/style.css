@@ -3835,9 +3835,14 @@
     font-size: 0.875rem;
     color: #546080;
     padding-left: 3.125rem !important;
-    padding-right: 0 !important;
+    /* padding-right: 0 !important; */
     box-shadow: none;
     border-radius: 0.5rem 0.5rem 0 0 !important;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .accordion-item .accordion-body{
+    background: #FAFAFF !important;
   }
   .accordion-item .accordion-button.bg-white {
     padding-left: 0 !important;
@@ -3863,10 +3868,10 @@
     }
   }
   .accordion-item .accordion-button:after {
-    position: relative;
-    right: 5rem;
-    top: -0.1875rem;
-    background-size: 0.9375rem;
+    /* position: relative; */
+    /* right: 5rem; */
+    /* top: -0.1875rem; */
+    /* background-size: 0.9375rem; */
   }
   .accordion-item .accordion-button.accord-with-arrow-right:after {
     right: 1.25rem;
