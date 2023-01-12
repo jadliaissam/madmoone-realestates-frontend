@@ -21,6 +21,7 @@ export interface IProjectUnit {
     description?: string;
     photos ?: string[];
     video?: string;
+    type?:string;
 
 }
 

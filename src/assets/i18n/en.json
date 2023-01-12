@@ -23,5 +23,7 @@
     "CAR_PARK" : "Parking",
     "SEE_MORE_DETAILS" : "See more details",
     "PROJECTS" : "Projects",
-    "NO_PROJECT_FOUND" : "No project found"
+    "NO_PROJECT_FOUND" : "No project found",
+    "APPARTEMENT" : "Apartment",
+    "OFFICE" : "Office"
 }
