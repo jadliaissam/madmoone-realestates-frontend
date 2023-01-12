@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     },
 ]
 
-  selectedLanguage = 'fr'
+  selectedLanguage = localStorage.getItem('lang') || 'fr';
   constructor(private translate : TranslateService) {
   }
 
@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit {
   }
   
   changeLanguage() {
+    localStorage.setItem('lang', this.selectedLanguage);
     // console.log(this.selectedLanguage);
     this.translate.use(this.selectedLanguage);
   }

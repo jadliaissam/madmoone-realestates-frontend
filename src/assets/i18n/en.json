@@ -25,5 +25,11 @@
     "PROJECTS" : "Projects",
     "NO_PROJECT_FOUND" : "No project found",
     "APPARTEMENT" : "Apartment",
-    "OFFICE" : "Office"
+    "OFFICE" : "Office",
+    "PROPERTY_DETAILS" : "Property details",
+    "PROPERTY_PIECES" : "Property pieces",
+    "PIECE_EQUIPEMENTS" : "Piece equipments",
+    "EXPOSITION" : "Exposition",
+    "PROPERTIES" : "Properties",
+    "NO_PROPERTY_FOUND" : "No property found"
 }

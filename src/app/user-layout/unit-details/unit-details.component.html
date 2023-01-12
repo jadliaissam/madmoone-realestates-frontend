@@ -54,7 +54,7 @@
                 class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
                 style="z-index: 1"
                 ><span class="pe-1">{{ _albums.length - 4 }}</span
-                ><span class="d-none d-sm-inline">autres photos</span></span
+                ><span class="d-none d-sm-inline">{{'OTHERS_PHOTOS' | translate}}</span></span
               >
             </div>
           </div>
@@ -76,7 +76,7 @@
                   : 'none'
             }"
           >
-            <a ngbNavLink>Accueil</a>
+            <a ngbNavLink>{{'HOME' | translate}}</a>
             <ng-template ngbNavContent>
               <div
                 class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
@@ -89,7 +89,7 @@
                     {{ projectUnit?.name }}
                   </h3>
                   <h4 class="font-12 font-poppins-400 color-grey mb-2">
-                    Déscription
+                    {{'DESCRIPTION' | translate}}
                   </h4>
                   <p
                     *ngIf="projectUnit?.description"
@@ -159,8 +159,8 @@
                       <h3
                         class="font-14 font-poppins-400 color-default mb-3 ms-2"
                       >
-                        Informations générales
-                      </h3>
+                      {{'GENERAL_INFO' | translate}}
+                    </h3>
                       <ul>
                         <li
                           class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2"
@@ -247,7 +247,7 @@
                     <h3
                       class="color-default font-14 font-poppins-400 mb-3 ms-2"
                     >
-                      Détails Bien
+                    {{'PROPERTY_DETAILS' | translate}}
                     </h3>
                     <ul>
                       <li
@@ -269,14 +269,14 @@
                         "
                       >
                         <span *ngIf="(projectUnit?.rooms)!.length > 0"
-                          >{{ projectUnit?.rooms?.length }} chambres</span
+                          >{{ projectUnit?.rooms?.length }} {{'ROOMS' | translate}}</span
                         >
                         <span
                           [ngClass]="{
                             'dote ps-2': (projectUnit?.rooms)!.length > 0
                           }"
                           *ngIf="projectUnit?.restRooms"
-                          >{{ projectUnit?.restRooms }} SDB</span
+                          >{{ projectUnit?.restRooms }} {{'BATHROOM_SHORT' | translate}}</span
                         >
                       </li>
                       <li
@@ -284,12 +284,12 @@
                         *ngIf="projectUnit?.balcony || projectUnit?.salons"
                       >
                         <span *ngIf="projectUnit?.balcony"
-                          >{{ projectUnit?.balcony }} Balcon</span
+                          >{{ projectUnit?.balcony }} {{'BALCONY' | translate}}</span
                         >
                         <span
                           [ngClass]="{ 'dote ps-2': projectUnit?.balcony }"
                           *ngIf="projectUnit?.salons"
-                          >{{ projectUnit?.salons }} salons</span
+                          >{{ projectUnit?.salons }} {{'SALON' | translate}}</span
                         >
                       </li>
                       <!-- <li
@@ -301,12 +301,12 @@
                         class="font-poppins-400 color-grey icon icon__parking mb-2 font-12 ps-4 ms-0 ms-sm-2 mb-4"
                         *ngIf="projectUnit?.parking"
                       >
-                        Parcking : {{ projectUnit?.parking }}
+                      {{'CAR_PARK' | translate}} : {{ projectUnit?.parking }}
                       </li>
                       <li class="ps-2" *ngIf="projectUnit?.priceMin">
                         <div class="price__wrapper d-flex flex-column">
                           <span class="font-poppins-400 font-14 color-grey mb-2"
-                            >À partir de</span
+                            >{{'FROM' | translate}}</span
                           >
                           <div class="d-flex flex-column">
                             <h2 class="price__main">
@@ -322,7 +322,7 @@
               </div>
               <ng-container *ngIf="projectUnit?.rooms && projectUnit?.rooms!.length > 0">
                 <h3 class="color-default font-16 font-poppins-400 mb-3">
-                  Piéces de Bien
+                  {{'PROPERTY_PIECES' | translate}}
                 </h3>
                 <ngb-accordion #a="ngbAccordion">
                   <ngb-panel
@@ -344,7 +344,7 @@
                         <span
                           *ngIf="room?.direction"
                           class="icon icon__surface font-sfpro-500 font-12 ps-4 pe-5 me-4"
-                          >Exposition {{ room?.direction }}</span
+                          >{{"EXPOSITION" | translate }} {{ room?.direction }}</span
                         >
                       </div>
                     </ng-template>
@@ -361,7 +361,7 @@
                         </div>
                         <div class="col-12 col-md-8 d-flex flex-column">
                           <h3 class="font-sfpro-500 font-14 mb-3">
-                            Equipements de la piecé :
+                            {{'PIECE_EQUIPEMENTS' | translate}} :
                           </h3>
                           <span *ngIf="!room?.equipements || room?.equipements?.length == 0">-</span>
                           <div class="row g-3" *ngIf="room?.equipements && room?.equipements!.length > 0">
@@ -401,7 +401,7 @@
             </ng-template>
           </li>
           <li [ngbNavItem]="2" *ngIf="projectUnit?.video" [style]="{ flex: 1 }">
-            <a ngbNavLink>Vidéo</a>
+            <a ngbNavLink>{{'VIDEO' | translate}}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -414,7 +414,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                      Vidéo du projet
+                    {{'PROJECT_VIDEO' | translate}}
                     </h2>
                   </div>
                   <ul
@@ -442,7 +442,7 @@
             [style]="{ flex: 1 }"
             *ngIf="projectUnit?.photos && (projectUnit?.photos)!.length > 0"
           >
-            <a ngbNavLink>Photos</a>
+            <a ngbNavLink>{{'PHOTOS' | translate}}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -455,7 +455,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                      Photos du projet
+                    {{'PROJECT_PHOTOS' | translate}}
                     </h2>
                     <div class="d-flex justify-content-between switch-display">
                       <button
@@ -509,7 +509,15 @@
   *ngIf="!project && !loading"
   [mainClass]="'wrapperProjects'"
   [secondClass]="'wrapperProjects__new'"
-  [title]="'Projets'"
-  [description]="'Aucun projet trouvé'"
+  [title]="'PROJECTS' | translate"
+  [description]="'NO_PROJECT_FOUND' | translate"
+  [hasAction]="false"
+></app-empty-state-v2>
+<app-empty-state-v2
+  *ngIf="project && !projectUnit !loading"
+  [mainClass]="'wrapperProjects'"
+  [secondClass]="'wrapperProjects__new'"
+  [title]="'PROPERTIES' | translate"
+  [description]="'NO_PROPERTY_FOUND' | translate"
   [hasAction]="false"
 ></app-empty-state-v2>
