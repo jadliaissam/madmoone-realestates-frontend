@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  HostListener,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
@@ -23,6 +24,11 @@ import {
 } from 'src/app/entities/all.entity';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EquipementModalComponent } from 'src/app/shared/equipement-modal/equipement-modal.component';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { registerLocaleData } from '@angular/common';
+import localAr from '@angular/common/locales/ar';
+import localFR from '@angular/common/locales/fr';
 @Component({
   selector: 'app-project-detail',
   templateUrl: './project-detail.component.html',
@@ -34,22 +40,47 @@ export class ProjectDetailComponent
 {
   public loading = false;
   map: any;
-  project: IProject | null = null;
+  project: IProject | any | null = null;
   apiLink = getApiBaseUrl();
   horizontalViewMode = true;
+  usingLang: string | null = null;
+  sub: Subscription = new Subscription();
 
   public _albums: Array<any> = [];
+
+  muchPicturesToShow = 7;
   constructor(
     private _lightbox: Lightbox,
     private projectService: ProjectService,
     private modalService: NgbModal,
+    private translate: TranslateService,
     _lightboxConfig: LightboxConfig
   ) {
     _lightboxConfig.centerVertically = true;
     _lightboxConfig.showDownloadButton = true;
     _lightboxConfig.fitImageInViewPort = true;
+    this.usingLang = this.translate.currentLang;
+    this.sub = translate.onLangChange.subscribe((event) => {
+      this.usingLang = event.lang;
+    });
+    registerLocaleData(localAr, 'ar');
+    registerLocaleData(localFR, 'fr');
+    // force leaflet to resize
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event : any) {
+    if(event.target.innerWidth < 768) {
+      this.muchPicturesToShow = 3;
+      this.horizontalViewMode = false;
+    }else{
+      this.muchPicturesToShow = 7;
+    }
+    
+  }
   ngOnInit(): void {
     this.getMainProject();
   }
@@ -62,7 +93,7 @@ export class ProjectDetailComponent
         this.loading = false;
         if (this.project) {
           if (this.project?.photos) {
-            this.project.photos.forEach((image) => {
+            this.project.photos.forEach((image: any) => {
               const src = this.apiLink + image;
               const thumb = this.apiLink + image;
               const album = {
@@ -81,7 +112,6 @@ export class ProjectDetailComponent
           ) {
             this.addProjectMarker();
           }
-          
         }
       },
       (error) => {
@@ -90,7 +120,7 @@ export class ProjectDetailComponent
       }
     );
   }
-  
+
   addProjectMarker() {
     const marker = L.marker(
       [this.project?.latitude || 0, this.project?.longitude || 0],
@@ -103,7 +133,10 @@ export class ProjectDetailComponent
         (layer) => {
           return L.Util.template(
             `<div style="text-align: center";>
-          ${this.project?.name?.toUpperCase()}
+          ${(
+            this.project['name_' + this.usingLang] ||
+            this.translate.instant('PROJECT')
+          )?.toUpperCase()}
           </div>`,
             layer
           );
@@ -126,24 +159,37 @@ export class ProjectDetailComponent
       marker.openPopup();
     }, 1000);
     this.map.fitBounds(L.latLngBounds([marker?.getLatLng()]));
+    // this.map?.invalidateSize();
   }
   async ngAfterViewInit(): Promise<void> {
-    this.map = await loadMap(this.map, false, 'map');
-    this.map?.invalidateSize();
+    // this.initMap();
+    // setTimeout(() => {
+    //   this.map?.invalidateSize();
+    //   window.dispatchEvent(new Event('resize'));
+    // }, 800)
+    if (this.map) {
+      console.log('remove map');
+      // remove it
+      this.map?.off();
+      this.map?.remove();
+    }
+    console.log('create map');
+    this.map = await loadMap(false, 'map');
     setTimeout(() => {
       this.map?.invalidateSize();
-    }, 800);
+      window.dispatchEvent(new Event('resize'));
+    }, 1000);
   }
 
   // open equipement modal (create new component) showing name icon (if exist) and description
   openModal(equipement: IProjectEquipement) {
-    console.log(equipement);
     // call modal component equipement and give equipement as in put
     const modalRef = this.modalService.open(EquipementModalComponent, {
       size: 'lg',
       centered: true,
     });
     modalRef.componentInstance.equipement = equipement;
+    modalRef.componentInstance.usingLang = this.usingLang;
   }
   open(index: number): void {
     this._lightbox.open(this._albums, index);
@@ -157,6 +203,9 @@ export class ProjectDetailComponent
     if (this.map) {
       this.map?.off();
       this.map?.remove();
+    }
+    if (this.sub) {
+      this.sub.unsubscribe();
     }
   }
 }

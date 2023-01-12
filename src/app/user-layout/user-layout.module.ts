@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserLayoutComponent } from './user-layout.component';
 import { SharedModule } from '../shared/shared.module';

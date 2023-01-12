@@ -15,7 +15,7 @@
           />
           <div class="d-flex flex-column mx-3">
             <h4 class="font-poppins-700 font-16 color-grey">
-              {{ (project?.name | uppercase) || "" }}
+              {{ project ? (project["name_" + usingLang] | uppercase) : "" }}
             </h4>
           </div>
         </div>
@@ -26,11 +26,16 @@
         >
           <div class="gallery-in-first">
             <div
-              *ngFor="let image of _albums | slice : 0 : 7; let i = index"
+              *ngFor="
+                let image of _albums | slice : 0 : muchPicturesToShow;
+                let i = index
+              "
               class="gallery__item--{{ i + 1 }}"
               (click)="open(i)"
               [ngClass]="{
-                'gallery-in-first__more': i === 6 && _albums.length > 7,
+                'gallery-in-first__more':
+                  i === muchPicturesToShow - 1 &&
+                  _albums.length > muchPicturesToShow,
                 'border-radius-8': i === 0
               }"
             >
@@ -40,11 +45,18 @@
                 class="gallery__img border-radius-8"
               />
               <span
-                *ngIf="i === 6 && _albums.length > 7"
-                class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
+                *ngIf="
+                  i === muchPicturesToShow - 1 &&
+                  _albums.length > muchPicturesToShow
+                "
+                class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus"
                 style="z-index: 1"
-                ><span class="pe-1">{{ _albums.length - 4 }}</span
-                ><span class="d-none d-sm-inline">{{'OTHERS_PHOTOS' | translate}}</span></span
+                ><span class="pe-1 pe-1-rtl">{{
+                  _albums.length - muchPicturesToShow + 1
+                }}</span
+                ><span class="d-inline">{{
+                  "OTHERS_PHOTOS" | translate
+                }}</span></span
               >
             </div>
           </div>
@@ -56,7 +68,7 @@
           [destroyOnHide]="false"
         >
           <li [ngbNavItem]="1" [style]="{ flex: 1 }">
-            <a ngbNavLink>{{'HOME' | translate}}</a>
+            <a ngbNavLink>{{ "HOME" | translate }}</a>
             <ng-template ngbNavContent>
               <div
                 class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
@@ -64,16 +76,22 @@
                 <div class="d-flex flex-column tabsContent__description--left">
                   <h3
                     class="font-14 font-poppins-400 color-default my-2"
-                    *ngIf="project?.name"
+                    *ngIf="project && project['name_' + usingLang]"
                   >
-                    {{ project?.name }}
+                    {{
+                      project ? (project["name_" + usingLang] | uppercase) : ""
+                    }}
                   </h3>
                   <h4 class="font-12 font-poppins-400 color-grey mb-2">
-                    {{'DESCRIPTION' | translate}}
+                    {{ "DESCRIPTION" | translate }}
                   </h4>
                   <p
-                    *ngIf="project?.description"
-                    [innerHTML]="project?.description | safeHtml"
+                    *ngIf="project && project['description_' + usingLang]"
+                    [innerHTML]="
+                      project
+                        ? (project['description_' + usingLang] | safeHtml)
+                        : '_'
+                    "
                     class="font-12 color-grey3"
                   ></p>
                   <!-- <ul class="d-flex property-project mb-3 flex-wrap">
@@ -132,83 +150,104 @@
                   </ul> -->
                 </div>
                 <div
-                  class="tabsContent__description--right d-flex flex-column border-radius-8 bg-grey py-3 px-2"
+                  class="tabsContent__description--right d-flex flex-column flex-sm-row flex-md-column border-radius-8 bg-grey py-3 px-2"
                 >
-                  <h3 class="font-14 font-poppins-400 color-default mb-3 ms-2">
-                    {{'GENERAL_INFO' | translate}}
-                  </h3>
-                  <ul>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.address"
+                  <div class="d-flex flex-column first-half ms-0 ms-sm-3 ms-md-0">
+                    <h3
+                      class="font-14 font-poppins-400 color-default mb-3 ms-2"
                     >
-                      {{ project?.address }}
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__profile mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.promoterName"
-                    >
-                      {{ project?.promoterName }}
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__briefcase mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.companyName"
-                    >
-                      {{ project?.companyName }}
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__city mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.city"
-                    >
-                      {{ project?.city }}
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__phone mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.phone"
-                    >
-                      {{ project?.phone }}
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__mail mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.email"
-                    >
-                      {{ project?.email }}
-                    </li>
-                    <li
-                      class="font-poppins-400 color-grey icon icon__siteweb mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                      *ngIf="project?.webSite"
-                    >
-                      <a
-                        class="d-inline color-default size-12"
-                        target="_blank"
-                        href="{{ project?.webSite }}"
-                        >{{ project?.webSite }}</a
+                      {{ "GENERAL_INFO" | translate }}
+                    </h3>
+                    <ul>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project && project['address_' + usingLang]"
                       >
-                    </li>
-                  </ul>
-                  <div class="d-flex contact">
-                    <a
-                      class="icon icon__phone flex-grow-1 align-items-center justify-content-center border-radius-8 both-after bg-green me-2"
-                      *ngIf="project?.phone"
-                      href="tel:{{ project?.phone }}"
-                    >
-                    </a>
-                    <a
-                      class="icon icon__mail2 flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after me-2"
-                      *ngIf="project?.email"
-                      target="_blank"
-                      href="mailto:{{ project?.email }}"
-                    ></a>
-                    <a
-                      class="icon icon__whatsapp flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after"
-                      *ngIf="project?.whatsapp"
-                      target="_blank"
-                      href="{{ project?.whatsapp }}"
-                    ></a>
+                        {{
+                          project
+                            ? (project["address_" + usingLang] | uppercase)
+                            : "-"
+                        }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__profile mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project && project['promoterName_' + usingLang]"
+                      >
+                        {{
+                          project
+                            ? (project["promoterName_" + usingLang] | uppercase)
+                            : "-"
+                        }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__briefcase mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project && project['companyName_' + usingLang]"
+                      >
+                        {{
+                          project
+                            ? (project["companyName_" + usingLang] | uppercase)
+                            : "-"
+                        }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__city mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project && project['city_' + usingLang]"
+                      >
+                        {{
+                          project
+                            ? (project["city_" + usingLang] | uppercase)
+                            : "-"
+                        }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__phone mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project?.phone"
+                      >
+                        {{ project?.phone }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__mail mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project?.email"
+                      >
+                        {{ project?.email }}
+                      </li>
+                      <li
+                        class="font-poppins-400 color-grey icon icon__siteweb mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                        *ngIf="project?.webSite"
+                      >
+                        <a
+                          class="d-inline color-default size-12"
+                          target="_blank"
+                          href="{{ project?.webSite }}"
+                          >{{ project?.webSite }}</a
+                        >
+                      </li>
+                    </ul>
+                    <div class="d-flex contact">
+                      <a
+                        class="icon icon__phone flex-grow-1 align-items-center justify-content-center border-radius-8 both-after bg-green me-2"
+                        *ngIf="project?.phone"
+                        href="tel:{{ project?.phone }}"
+                      >
+                      </a>
+                      <a
+                        class="icon icon__mail2 flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after me-2"
+                        *ngIf="project?.email"
+                        target="_blank"
+                        href="mailto:{{ project?.email }}"
+                      ></a>
+                      <a
+                        class="icon icon__whatsapp flex-grow-1 align-items-center justify-content-center bg-white border-radius-8 both-after"
+                        *ngIf="project?.whatsapp"
+                        target="_blank"
+                        href="{{ project?.whatsapp }}"
+                      ></a>
+                    </div>
                   </div>
-                  <div class="mt-3">
+                  <div class="mt-3 mt-sm-0 mt-md-3 second-half">
                     <div
                       class="project-map border-radius-8"
+                      style="width: 100%; height: 300px"
                       [ngClass]="{
                         'no-map': !project?.longitude || !project?.latitude
                       }"
@@ -224,7 +263,7 @@
                   (project?.projectEquipements)!.length > 0
                 "
               >
-              {{'PROJECT_EQUIPMENT' | translate}}
+                {{ "PROJECT_EQUIPMENT" | translate }}
               </h2>
               <div class="d-flex flex-wrap equipments__project mb-5 row g-3">
                 <div
@@ -236,106 +275,134 @@
                     class="bg-grey d-flex font-12 font-poppins-400 p-3 border-radius-8"
                   >
                     <span
-                      class="pe-2  icon-{{ equi?.icon }} fs-6 color-default"
-                      [ngClass]="{ 'icon-eb18': !equi?.icon }"
+                      class="pe-2  icon-{{
+                        equi?.icon
+                      }} fs-6 color-default pe-2-rtl"
+                      [ngClass]="{ 'icon-uniE68D': !equi?.icon }"
                     ></span>
-                    {{ equi?.name }}
+                    {{ equi ? (equi["name_" + usingLang] | uppercase) : "-" }}
                   </span>
                 </div>
               </div>
 
               <ng-container
-              *ngIf="
-              project?.projectUnits && (project!.projectUnits! | filter:{type:'APPARTEMENT'}) && (project?.projectUnits! | filter:{type:'APPARTEMENT'})!.length > 0
-              "
-            >
-              <div class="d-flex justify-content-between flex-column mb-3">
-                <hr class="mb-4" />
-               
+                *ngIf="
+                  project?.projectUnits &&
+                  (project!.projectUnits! | filter : { type: 'APPARTEMENT' }) &&
+                  (project?.projectUnits! | filter : { type: 'APPARTEMENT' })!
+                    .length > 0
+                "
+              >
+                <div class="d-flex justify-content-between flex-column mb-3">
+                  <hr class="mb-4" />
+
                   <h2
                     class="color-default font-poppins-400 font-16 text-capitalize mb-3"
                   >
-                  {{'APARTMENTS_IN_THIS_PROJECT' | translate}}
+                    {{ "APARTMENTS_IN_THIS_PROJECT" | translate }}
                   </h2>
-                <div class="row mb-3">
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
-                    *ngFor="let unit of project?.projectUnits! | filter:{type:'APPARTEMENT'}"
-                  >
-                    <div class="product shadow">
-                      <div class="picture">
-                        <img
-                          [src]="apiLink + unit?.mainPhoto"
-                          class="border-bottom"
-                          default="/assets/img/building.svg"
-                          alt="image Unité"
-                        />
-                      </div>
-                      <div class="content">
-                        <div
-                          class="d-flex justify-content-between align-items-center mb-4"
-                        >
-                          <div>
-                            <h3
-                              class="font-poppins-700 color-grey font-14"
-                              *ngIf="unit?.name"
-                            >
-                              {{ unit?.name }}
-                            </h3>
-                            <!-- <span class="color-default font-12 font-poppins-400"
-                              >code 763536</span
-                            > -->
-                          </div>
+                  <div class="row mb-3">
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
+                      *ngFor="
+                        let unit of project?.projectUnits!
+                          | filter : { type: 'APPARTEMENT' }
+                      "
+                    >
+                      <div class="product shadow">
+                        <div class="picture">
+                          <img
+                            [src]="apiLink + unit?.mainPhoto"
+                            class="border-bottom"
+                            default="/assets/img/building.svg"
+                            alt="image Unité"
+                          />
                         </div>
-                        <div
-                          class="price__wrapper d-flex flex-column mb-3"
-                          *ngIf="unit?.priceMin"
-                        >
-                          <span class="font-poppins-400 font-14 color-grey mb-2"
-                            >{{'FROM' | translate}}</span
-                          >
+                        <div class="content">
                           <div
-                            class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                            class="d-flex justify-content-between align-items-center mb-4"
                           >
                             <div>
-                              <h2 class="price__main">
-                                {{ unit.priceMin | currency : "MAD" }}
-                              </h2>
+                              <h3
+                                class="font-poppins-700 color-grey font-14"
+                                *ngIf="unit && unit['name_' + usingLang]"
+                              >
+                                {{
+                                  unit
+                                    ? (unit["name_" + usingLang] | uppercase)
+                                    : "-"
+                                }}
+                              </h3>
+                              <!-- <span class="color-default font-12 font-poppins-400"
+                              >code 763536</span
+                            > -->
                             </div>
                           </div>
-                        </div>
-                        <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                          {{'CHARACTERISTICS_OF_THE_PROPERTY' | translate}}
-                        </h3>
-                        <ul class="caractere__list half_in_2 mb-4">
-                          <li>
-                            <div class="row gy-2 w-100">
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.balcony"
-                              >
-                                <span class="caractere__item icon icon__balcon"
-                                  >{{ unit?.balcony }} {{'BALCONY' | translate}}</span
-                                >
+                          <div
+                            class="price__wrapper d-flex flex-column mb-3"
+                            *ngIf="unit?.priceMin"
+                          >
+                            <span
+                              class="font-poppins-400 font-14 color-grey mb-2"
+                              >{{ "FROM" | translate }}</span
+                            >
+                            <div
+                              class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                            >
+                              <div>
+                                <h2 class="price__main">
+                                  {{
+                                    unit.priceMin
+                                      | currency
+                                        : "MAD"
+                                        : "symbol"
+                                        : "1.0-0"
+                                        : (usingLang! === "en" ||
+                                          usingLang! === "fr"
+                                            ? "fr"
+                                            : "ar")
+                                  }}
+                                </h2>
                               </div>
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.rooms && unit?.rooms!.length > 0"
-                              >
-                                <span class="caractere__item icon icon__chambre"
-                                  >{{ unit?.rooms?.length }} {{'ROOMS' | translate}}</span
+                            </div>
+                          </div>
+                          <h3 class="font-poppins-500 font-14 color-grey mb-4">
+                            {{ "CHARACTERISTICS_OF_THE_PROPERTY" | translate }}
+                          </h3>
+                          <ul class="caractere__list half_in_2 mb-4">
+                            <li>
+                              <div class="row gy-2 w-100">
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.balcony"
                                 >
-                              </div>
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.salons"
-                              >
-                                <span
-                                  class="caractere__item icon icon__ascenseur"
-                                  >{{ unit?.salons }} {{'SALON' | translate}}</span
+                                  <span
+                                    class="caractere__item icon icon__balcon rtl-change-icon"
+                                    >{{ unit?.balcony }}
+                                    {{ "BALCONY" | translate }}</span
+                                  >
+                                </div>
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.rooms_count"
                                 >
-                              </div>
-                              <!-- <div
+                                  <span
+                                    class="caractere__item icon icon__chambre rtl-change-icon"
+                                    >{{ unit?.rooms_count }}
+                                    {{ "ROOMS" | translate }}</span
+                                  >
+                                </div>
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.salons"
+                                >
+                                  <span
+                                    class="caractere__item icon icon__home rtl-change-icon"
+                                    >{{ unit?.salons }}
+                                    {{ "SALON" | translate }}</span
+                                  >
+                                </div>
+                                <!-- <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.floor"
                               >
@@ -343,22 +410,23 @@
                                   >étage : {{ unit?.floor }}</span
                                 >
                               </div> -->
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.restRooms"
-                              >
-                                <span
-                                  class="caractere__item icon icon__securite"
-                                  >{{ unit?.restRooms }} {{'BATHROOM_SHORT' | translate}}</span
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.restRooms"
                                 >
+                                  <span
+                                    class="caractere__item icon icon__securite rtl-change-icon"
+                                    >{{ unit?.restRooms }}
+                                    {{ "BATHROOM_SHORT" | translate }}</span
+                                  >
+                                </div>
                               </div>
-                            </div>
-                          </li>
-                        </ul>
-                        <ul class="caractere__list half_in_2 mb-4">
-                          <li>
-                            <div class="row gy-2 w-100">
-                              <!-- <div
+                            </li>
+                          </ul>
+                          <ul class="caractere__list half_in_2 mb-4">
+                            <li>
+                              <div class="row gy-2 w-100">
+                                <!-- <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.direction"
                               >
@@ -367,128 +435,162 @@
                                   >Exposition {{ unit?.direction }}</span
                                 >
                               </div> -->
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.area"
-                              >
-                                <span class="caractere__item icon icon__surface"
-                                  >{{'AREA' | translate}} {{ unit?.area }} m2</span
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.area"
                                 >
-                              </div>
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.parking"
-                              >
-                                <span class="caractere__item icon icon__parking"
-                                  >{{'CAR_PARK' | translate}} : {{ unit?.parking }}</span
+                                  <span
+                                    class="caractere__item icon icon__surface rtl-change-icon"
+                                    >{{ "AREA" | translate }} {{ unit?.area }}
+                                    {{ "M2" | translate }}</span
+                                  >
+                                </div>
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit && unit['parking_' + usingLang]"
                                 >
+                                  <span
+                                    class="caractere__item icon icon__parking rtl-change-icon"
+                                    >{{ "CAR_PARK" | translate }} :
+                                    {{
+                                      unit
+                                        ? (unit["parking_" + usingLang]
+                                          | uppercase)
+                                        : "-"
+                                    }}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </li>
-                        </ul>
-                        <a
-                          [routerLink]="['/units', unit?._id]"
-                          class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                          >{{'SEE_MORE_DETAILS' | translate}}</a
-                        >
+                            </li>
+                          </ul>
+                          <a
+                            [routerLink]="['/units', unit?._id]"
+                            class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
+                            >{{ "SEE_MORE_DETAILS" | translate }}</a
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ng-container>
-            <ng-container
-              *ngIf="
-              project?.projectUnits && (project!.projectUnits! | filter:{type:'OFFICE'})!.length > 0
-              "
-            >
-              <div class="d-flex justify-content-between flex-column mb-3">
-                <hr class="mb-4" />
-               
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  project?.projectUnits &&
+                  (project!.projectUnits! | filter : { type: 'OFFICE' })!
+                    .length > 0
+                "
+              >
+                <div class="d-flex justify-content-between flex-column mb-3">
+                  <hr class="mb-4" />
+
                   <h2
                     class="color-default font-poppins-400 font-16 text-capitalize mb-3"
                   >
-                  {{'OFFICES_IN_THIS_PROJECT' | translate}}
+                    {{ "OFFICES_IN_THIS_PROJECT" | translate }}
                   </h2>
-                <div class="row mb-3">
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
-                    *ngFor="let unit of project?.projectUnits! | filter:{type:'OFFICE'}"
-                  >
-                    <div class="product shadow">
-                      <div class="picture">
-                        <img
-                          [src]="apiLink + unit?.mainPhoto"
-                          class="border-bottom"
-                          default="/assets/img/building.svg"
-                          alt="image Unité"
-                        />
-                      </div>
-                      <div class="content">
-                        <div
-                          class="d-flex justify-content-between align-items-center mb-4"
-                        >
-                          <div>
-                            <h3
-                              class="font-poppins-700 color-grey font-14"
-                              *ngIf="unit?.name"
-                            >
-                              {{ unit?.name }}
-                            </h3>
-                            <!-- <span class="color-default font-12 font-poppins-400"
-                              >code 763536</span
-                            > -->
-                          </div>
+                  <div class="row mb-3">
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-3 mb-md-3"
+                      *ngFor="
+                        let unit of project?.projectUnits!
+                          | filter : { type: 'OFFICE' }
+                      "
+                    >
+                      <div class="product shadow">
+                        <div class="picture">
+                          <img
+                            [src]="apiLink + unit?.mainPhoto"
+                            class="border-bottom"
+                            default="/assets/img/building.svg"
+                            alt="image Unité"
+                          />
                         </div>
-                        <div
-                          class="price__wrapper d-flex flex-column mb-3"
-                          *ngIf="unit?.priceMin"
-                        >
-                          <span class="font-poppins-400 font-14 color-grey mb-2"
-                            >{{'FROM' | translate}}</span
-                          >
+                        <div class="content">
                           <div
-                            class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                            class="d-flex justify-content-between align-items-center mb-4"
                           >
                             <div>
-                              <h2 class="price__main">
-                                {{ unit.priceMin | currency : "MAD" }}
-                              </h2>
+                              <h3
+                                class="font-poppins-700 color-grey font-14"
+                                *ngIf="unit && unit['name_' + usingLang]"
+                              >
+                                {{
+                                  unit
+                                    ? (unit["name_" + usingLang] | uppercase)
+                                    : "-"
+                                }}
+                              </h3>
+                              <!-- <span class="color-default font-12 font-poppins-400"
+                              >code 763536</span
+                            > -->
                             </div>
                           </div>
-                        </div>
-                        <h3 class="font-poppins-500 font-14 color-grey mb-4">
-                          {{'CHARACTERISTICS_OF_THE_PROPERTY' | translate}}
-                        </h3>
-                        <ul class="caractere__list half_in_2 mb-4">
-                          <li>
-                            <div class="row gy-2 w-100">
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.balcony"
-                              >
-                                <span class="caractere__item icon icon__balcon"
-                                  >{{ unit?.balcony }} {{'BALCONY' | translate}}</span
-                                >
+                          <div
+                            class="price__wrapper d-flex flex-column mb-3"
+                            *ngIf="unit?.priceMin"
+                          >
+                            <span
+                              class="font-poppins-400 font-14 color-grey mb-2"
+                              >{{ "FROM" | translate }}</span
+                            >
+                            <div
+                              class="d-flex justify-content-between align-items-start align-items-sm-center flex-column flex-sm-row"
+                            >
+                              <div>
+                                <h2 class="price__main">
+                                  {{
+                                    unit.priceMin
+                                      | currency
+                                        : "MAD"
+                                        : "symbol"
+                                        : "1.0-0"
+                                        : (usingLang! === "en" ||
+                                          usingLang! === "fr"
+                                            ? "fr"
+                                            : "ar")
+                                  }}
+                                </h2>
                               </div>
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.rooms && unit?.rooms!.length > 0"
-                              >
-                                <span class="caractere__item icon icon__chambre"
-                                  >{{ unit?.rooms?.length }} {{'ROOMS' | translate}}</span
+                            </div>
+                          </div>
+                          <h3 class="font-poppins-500 font-14 color-grey mb-4">
+                            {{ "CHARACTERISTICS_OF_THE_PROPERTY" | translate }}
+                          </h3>
+                          <ul class="caractere__list half_in_2 mb-4">
+                            <li>
+                              <div class="row gy-2 w-100">
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.balcony"
                                 >
-                              </div>
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.salons"
-                              >
-                                <span
-                                  class="caractere__item icon icon__ascenseur"
-                                  >{{ unit?.salons }} {{'SALON' | translate}}</span
+                                  <span
+                                    class="caractere__item icon icon__balcon rtl-change-icon"
+                                    >{{ unit?.balcony }}
+                                    {{ "BALCONY" | translate }}</span
+                                  >
+                                </div>
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.rooms_count"
                                 >
-                              </div>
-                              <!-- <div
+                                  <span
+                                    class="caractere__item icon icon__chambre rtl-change-icon"
+                                    >{{ unit?.rooms_count }}
+                                    {{ "ROOMS" | translate }}</span
+                                  >
+                                </div>
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.salons"
+                                >
+                                  <span
+                                    class="caractere__item icon icon__home rtl-change-icon"
+                                    >{{ unit?.salons }}
+                                    {{ "SALON" | translate }}</span
+                                  >
+                                </div>
+                                <!-- <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.floor"
                               >
@@ -496,22 +598,23 @@
                                   >étage : {{ unit?.floor }}</span
                                 >
                               </div> -->
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.restRooms"
-                              >
-                                <span
-                                  class="caractere__item icon icon__securite"
-                                  >{{ unit?.restRooms }} {{'BATHROOM_SHORT' | translate}}</span
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.restRooms"
                                 >
+                                  <span
+                                    class="caractere__item icon icon__securite rtl-change-icon"
+                                    >{{ unit?.restRooms }}
+                                    {{ "BATHROOM_SHORT" | translate }}</span
+                                  >
+                                </div>
                               </div>
-                            </div>
-                          </li>
-                        </ul>
-                        <ul class="caractere__list half_in_2 mb-4">
-                          <li>
-                            <div class="row gy-2 w-100">
-                              <!-- <div
+                            </li>
+                          </ul>
+                          <ul class="caractere__list half_in_2 mb-4">
+                            <li>
+                              <div class="row gy-2 w-100">
+                                <!-- <div
                                 class="col-12 col-md-6 text-ellipsis"
                                 *ngIf="unit?.direction"
                               >
@@ -520,36 +623,45 @@
                                   >Exposition {{ unit?.direction }}</span
                                 >
                               </div> -->
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.area"
-                              >
-                                <span class="caractere__item icon icon__surface"
-                                  >{{'AREA' | translate}} {{ unit?.area }} m2</span
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit?.area"
                                 >
-                              </div>
-                              <div
-                                class="col-12 col-md-6 text-ellipsis"
-                                *ngIf="unit?.parking"
-                              >
-                                <span class="caractere__item icon icon__parking"
-                                  >{{'CAR_PARK' | translate}} : {{ unit?.parking }}</span
+                                  <span
+                                    class="caractere__item icon icon__surface rtl-change-icon"
+                                    >{{ "AREA" | translate }} {{ unit?.area }}
+                                    {{ "M2" | translate }}</span
+                                  >
+                                </div>
+                                <div
+                                  class="col-12 col-md-6 text-ellipsis"
+                                  *ngIf="unit && unit['parking' + usingLang]"
                                 >
+                                  <span
+                                    class="caractere__item icon icon__parking rtl-change-icon"
+                                    >{{ "CAR_PARK" | translate }} :
+                                    {{
+                                      unit
+                                        ? (unit["parking" + usingLang]
+                                          | uppercase)
+                                        : "-"
+                                    }}
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                          </li>
-                        </ul>
-                        <a
-                          [routerLink]="['/units', unit?._id]"
-                          class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
-                          >{{'SEE_MORE_DETAILS' | translate}}</a
-                        >
+                            </li>
+                          </ul>
+                          <a
+                            [routerLink]="['/units', unit?._id]"
+                            class="main-btn w-100 h-40 d-flex align-items-center justify-content-center"
+                            >{{ "SEE_MORE_DETAILS" | translate }}</a
+                          >
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </ng-container>
+              </ng-container>
               <!-- <div class="d-flex justify-content-center mb-5">
                 <button
                   class="main-btn bg-white h-40"
@@ -563,7 +675,7 @@
             </ng-template>
           </li>
           <li [ngbNavItem]="2" *ngIf="project?.video" [style]="{ flex: 1 }">
-            <a ngbNavLink>{{'VIDEO' | translate}}</a>
+            <a ngbNavLink>{{ "VIDEO" | translate }}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -576,7 +688,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                    {{'PROJECT_VIDEO' | translate}}
+                      {{ "PROJECT_VIDEO" | translate }}
                     </h2>
                   </div>
                   <ul
@@ -604,7 +716,7 @@
             [style]="{ flex: 1 }"
             *ngIf="project?.photos && (project?.photos)!.length > 0"
           >
-            <a ngbNavLink>{{'PHOTOS' | translate}}</a>
+            <a ngbNavLink>{{ "PHOTOS" | translate }}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -617,7 +729,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                      {{'PROJECT_PHOTOS' | translate}}
+                      {{ "PROJECT_PHOTOS" | translate }}
                     </h2>
                     <div class="d-flex justify-content-between switch-display">
                       <button

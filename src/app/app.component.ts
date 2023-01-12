@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -10,12 +9,20 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   title = 'madmoone-realestates-frontend';
 
+  // public DirectionController = new TextDirectionController();
+
   constructor(translate: TranslateService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
      // the lang to use, if the lang isn't available, it will use the current loader to get them
     translate.use(localStorage.getItem('lang') || 'fr');
+
+    // add dir atribute to body with right value
+    // this.renderer.setAttribute(document.body, 'dir', this.DirectionController.textDirection);
+    // add lang atribute to body with right value
+    // this.renderer.setAttribute(document.body, 'lang', localStorage.getItem('lang') || 'fr');
+
 }
 
 }

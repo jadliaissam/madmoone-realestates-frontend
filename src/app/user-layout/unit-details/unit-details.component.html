@@ -25,7 +25,7 @@
           />
           <div class="d-flex flex-column mx-3">
             <h4 class="font-poppins-700 font-16 color-grey">
-              {{ (project?.name | uppercase) || "" }}
+              {{ project ? (project["name_" + usingLang] | uppercase) : "" }}
             </h4>
           </div>
         </div>
@@ -36,11 +36,11 @@
         >
           <div class="gallery-in-first">
             <div
-              *ngFor="let image of _albums | slice : 0 : 7; let i = index"
+              *ngFor="let image of _albums | slice : 0 : muchPicturesToShow; let i = index"
               class="gallery__item--{{ i + 1 }}"
               (click)="open(i)"
               [ngClass]="{
-                'gallery-in-first__more': i === 6 && _albums.length > 7,
+                'gallery-in-first__more': i === muchPicturesToShow - 1 && _albums.length > muchPicturesToShow,
                 'border-radius-8': i === 0
               }"
             >
@@ -50,11 +50,13 @@
                 class="gallery__img border-radius-8"
               />
               <span
-                *ngIf="i === 6 && _albums.length > 7"
-                class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus hide-icon-mobile"
+                *ngIf="i === muchPicturesToShow - 1 && _albums.length > muchPicturesToShow"
+                class="color-white font-poppins-500 font-12 position-absolute both w-100 text-center text-capitalize icon icon__element-plus"
                 style="z-index: 1"
-                ><span class="pe-1">{{ _albums.length - 4 }}</span
-                ><span class="d-none d-sm-inline">{{'OTHERS_PHOTOS' | translate}}</span></span
+                ><span class="pe-1">{{ _albums.length - muchPicturesToShow + 1 }}</span
+                ><span class="d-none d-sm-inline">{{
+                  "OTHERS_PHOTOS" | translate
+                }}</span></span
               >
             </div>
           </div>
@@ -76,7 +78,7 @@
                   : 'none'
             }"
           >
-            <a ngbNavLink>{{'HOME' | translate}}</a>
+            <a ngbNavLink>{{ "HOME" | translate }}</a>
             <ng-template ngbNavContent>
               <div
                 class="d-flex tabsContent__description mb-4 flex-column flex-md-row align-items-start"
@@ -84,16 +86,24 @@
                 <div class="d-flex flex-column tabsContent__description--left">
                   <h3
                     class="font-14 font-poppins-400 color-default my-2"
-                    *ngIf="projectUnit?.name"
+                    *ngIf="project && project['name_' + usingLang]"
                   >
-                    {{ projectUnit?.name }}
+                    {{
+                      project ? (project["name_" + usingLang] | uppercase) : ""
+                    }}
                   </h3>
                   <h4 class="font-12 font-poppins-400 color-grey mb-2">
-                    {{'DESCRIPTION' | translate}}
+                    {{ "DESCRIPTION" | translate }}
                   </h4>
                   <p
-                    *ngIf="projectUnit?.description"
-                    [innerHTML]="projectUnit?.description | safeHtml"
+                    *ngIf="
+                      projectUnit && projectUnit['description_' + usingLang]
+                    "
+                    [innerHTML]="
+                      projectUnit
+                        ? (projectUnit['description_' + usingLang] | safeHtml)
+                        : '_'
+                    "
                     class="font-12 color-grey3"
                   ></p>
                   <!-- <ul class="d-flex property-project mb-3 flex-wrap">
@@ -151,55 +161,72 @@
                     </li>
                   </ul> -->
                 </div>
-                <div class="tabsContent__description--right">
+                <div class="tabsContent__description--right d-flex flex-column flex-sm-row flex-md-column">
                   <div
-                    class="d-flex flex-column border-radius-8 bg-grey py-3 px-2 mb-3"
+                    class="d-flex flex-column first-half border-radius-8 bg-grey ms-0 ms-sm-3 ms-md-0  py-3 px-2 m-0"
                   >
                     <div>
                       <h3
                         class="font-14 font-poppins-400 color-default mb-3 ms-2"
                       >
-                      {{'GENERAL_INFO' | translate}}
-                    </h3>
+                        {{ "GENERAL_INFO" | translate }}
+                      </h3>
                       <ul>
                         <li
-                          class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                          *ngIf="project?.address"
+                          class="font-poppins-400 color-grey icon icon__address mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                          *ngIf="project && project['address_' + usingLang]"
                         >
-                          {{ project?.address }}
+                          {{
+                            project
+                              ? (project["address_" + usingLang] | uppercase)
+                              : "-"
+                          }}
                         </li>
                         <li
-                          class="font-poppins-400 color-grey icon icon__profile mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                          *ngIf="project?.promoterName"
+                          class="font-poppins-400 color-grey icon icon__profile mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                          *ngIf="project && project['promoterName_' + usingLang]"
                         >
-                          {{ project?.promoterName }}
+                          {{
+                            project
+                              ? (project["promoterName_" + usingLang]
+                                | uppercase)
+                              : "-"
+                          }}
                         </li>
                         <li
-                          class="font-poppins-400 color-grey icon icon__briefcase mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                          *ngIf="project?.companyName"
+                          class="font-poppins-400 color-grey icon icon__briefcase mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                          *ngIf="project && project['companyName_' + usingLang]"
                         >
-                          {{ project?.companyName }}
+                          {{
+                            project
+                              ? (project["companyName_" + usingLang] | uppercase)
+                              : "-"
+                          }}
                         </li>
                         <li
-                          class="font-poppins-400 color-grey icon icon__city mb-3 font-12 ps-4 ms-0 ms-sm-2"
-                          *ngIf="project?.city"
+                          class="font-poppins-400 color-grey icon icon__city mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
+                          *ngIf="project && project['city_' + usingLang]"
                         >
-                          {{ project?.city }}
+                          {{
+                            project
+                              ? (project["city_" + usingLang] | uppercase)
+                              : "-"
+                          }}
                         </li>
                         <li
-                          class="font-poppins-400 color-grey icon icon__phone mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                          class="font-poppins-400 color-grey icon icon__phone mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
                           *ngIf="project?.phone"
                         >
                           {{ project?.phone }}
                         </li>
                         <li
-                          class="font-poppins-400 color-grey icon icon__mail mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                          class="font-poppins-400 color-grey icon icon__mail mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
                           *ngIf="project?.email"
                         >
                           {{ project?.email }}
                         </li>
                         <li
-                          class="font-poppins-400 color-grey icon icon__siteweb mb-3 font-12 ps-4 ms-0 ms-sm-2"
+                          class="font-poppins-400 color-grey icon icon__siteweb mb-3 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
                           *ngIf="project?.webSite"
                         >
                           <a
@@ -242,54 +269,57 @@
                     ></div>
                   </div> -->
                   <div
-                    class="d-flex flex-column border-radius-8 bg-grey py-3 px-2 mt-3"
+                    class="d-flex flex-column border-radius-8 bg-grey py-3 px-2  mt-3 mt-sm-0 mt-md-3 second-half"
                   >
                     <h3
                       class="color-default font-14 font-poppins-400 mb-3 ms-2"
                     >
-                    {{'PROPERTY_DETAILS' | translate}}
+                      {{ "PROPERTY_DETAILS" | translate }}
                     </h3>
                     <ul>
                       <li
-                        class="font-poppins-400 color-grey icon icon__surface mb-2 font-12 ps-4 ms-0 ms-sm-2"
+                        class="font-poppins-400 color-grey icon icon__surface mb-2 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
                       >
-                        <span>{{projectUnit?.type! | translate}}</span>
-                        <span class="dote ps-2"
-                          >{{ projectUnit?.area }} m2</span
+                        <span>{{ projectUnit?.type! | translate  | uppercase}}</span>
+                        <span class="dote ps-2 ps-2-rtl"
+                          >{{ projectUnit?.area }} {{'M2' | translate}}</span
                         >
                         <!-- <span class="dote ps-2">Neuf</span> -->
                       </li>
 
                       <li
-                        class="font-poppins-400 color-grey icon icon__home mb-2 font-12 ps-4 ms-0 ms-sm-2"
+                        class="font-poppins-400 color-grey icon icon__home mb-2 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
                         *ngIf="
-                          (projectUnit?.rooms &&
-                            (projectUnit?.rooms)!.length > 0) ||
+                          projectUnit?.rooms_count ||
                           projectUnit?.restRooms
                         "
                       >
-                        <span *ngIf="(projectUnit?.rooms)!.length > 0"
-                          >{{ projectUnit?.rooms?.length }} {{'ROOMS' | translate}}</span
+                        <span *ngIf="projectUnit?.rooms_count"
+                          >{{ projectUnit?.rooms_count }}
+                          {{ "ROOMS" | translate | uppercase}}</span
                         >
                         <span
                           [ngClass]="{
-                            'dote ps-2': (projectUnit?.rooms)!.length > 0
+                            'dote ps-2 ps-2-rtl': projectUnit?.rooms_count
                           }"
                           *ngIf="projectUnit?.restRooms"
-                          >{{ projectUnit?.restRooms }} {{'BATHROOM_SHORT' | translate}}</span
+                          >{{ projectUnit?.restRooms }}
+                          {{ "BATHROOM_SHORT" | translate  | uppercase }}</span
                         >
                       </li>
                       <li
-                        class="font-poppins-400 color-grey icon icon__balcon mb-2 font-12 ps-4 ms-0 ms-sm-2"
+                        class="font-poppins-400 color-grey icon icon__balcon mb-2 font-12 ps-4 ms-0 ms-sm-2 ps-4-rtl rtl-change-icon"
                         *ngIf="projectUnit?.balcony || projectUnit?.salons"
                       >
                         <span *ngIf="projectUnit?.balcony"
-                          >{{ projectUnit?.balcony }} {{'BALCONY' | translate}}</span
+                          >{{ projectUnit?.balcony }}
+                          {{ "BALCONY" | translate  | uppercase}}</span
                         >
                         <span
-                          [ngClass]="{ 'dote ps-2': projectUnit?.balcony }"
+                          [ngClass]="{ 'dote ps-2 ps-2-rtl': projectUnit?.balcony }"
                           *ngIf="projectUnit?.salons"
-                          >{{ projectUnit?.salons }} {{'SALON' | translate}}</span
+                          >{{ projectUnit?.salons }}
+                          {{ "SALON" | translate  | uppercase }}</span
                         >
                       </li>
                       <!-- <li
@@ -298,19 +328,27 @@
                         Orientation : Nord east
                       </li> -->
                       <li
-                        class="font-poppins-400 color-grey icon icon__parking mb-2 font-12 ps-4 ms-0 ms-sm-2 mb-4"
-                        *ngIf="projectUnit?.parking"
+                        class="font-poppins-400 color-grey icon icon__parking mb-2 font-12 ps-4 ms-0 ms-sm-2 mb-4 ps-4-rtl rtl-change-icon"
+                        *ngIf="
+                          projectUnit && projectUnit['parking_' + usingLang]
+                        "
                       >
-                      {{'CAR_PARK' | translate}} : {{ projectUnit?.parking }}
+                        {{ "CAR_PARK" | translate  | uppercase}} :
+                        {{
+                          projectUnit
+                            ? (projectUnit["parking_" + usingLang] | uppercase)
+                            : "-"
+                        }}
                       </li>
-                      <li class="ps-2" *ngIf="projectUnit?.priceMin">
+                      <li class="ps-2 ps-2-rtl" *ngIf="projectUnit?.priceMin">
                         <div class="price__wrapper d-flex flex-column">
-                          <span class="font-poppins-400 font-14 color-grey mb-2"
-                            >{{'FROM' | translate}}</span
+                          <span
+                            class="font-poppins-400 font-14 color-grey mb-2"
+                            >{{ "FROM" | translate }}</span
                           >
                           <div class="d-flex flex-column">
                             <h2 class="price__main">
-                              {{ projectUnit?.priceMin | currency : "MAD" }}
+                              {{ projectUnit?.priceMin |  currency:'MAD' : 'symbol' : '1.0-0' : (usingLang! === 'en' || usingLang! === 'fr') ? 'fr' : 'ar' }}
                             </h2>
                             <!-- <h4 class="price__promotion">1,892,000 MAD</h4> -->
                           </div>
@@ -320,67 +358,108 @@
                   </div>
                 </div>
               </div>
-              <ng-container *ngIf="projectUnit?.rooms && projectUnit?.rooms!.length > 0">
+              <ng-container
+                *ngIf="projectUnit?.rooms && (projectUnit?.rooms)!.length > 0"
+              >
                 <h3 class="color-default font-16 font-poppins-400 mb-3">
-                  {{'PROPERTY_PIECES' | translate}}
+                  {{ "PROPERTY_PIECES" | translate }}
                 </h3>
                 <ngb-accordion #a="ngbAccordion">
                   <ngb-panel
-                    id="custom-panel-{{i}}"
+                    id="custom-panel-{{ i }}"
                     class="mb-2"
                     *ngFor="let room of projectUnit?.rooms; let i = index"
                   >
                     <ng-template ngbPanelTitle let-opened="opened">
-                      <div class="flex-grow-1">
+                      <div class="flex-grow-1 accordion-header-custom">
                         <span
-                          class="icon icon__chambre2 font-poppins-500 font-14"
-                          >{{ room?.name }}</span
+                          *ngIf="room && room['name_' + usingLang]"
+                          class="icon icon__chambre2 font-poppins-500 font-14 rtl-change-icon"
+                          >{{
+                            room ? (room["name_" + usingLang] | uppercase) : ""
+                          }}</span
                         >
                         <span
                           *ngIf="room?.area"
-                          class="icon icon__surface font-sfpro-500 font-12 ps-4 pe-5 me-4"
-                          >{{ room?.area }} m2</span
+                          class="icon icon__surface font-sfpro-500 font-12 ps-4 mt-3 mb-1 mb-sm-0 mt-sm-0 pe-5 me-2 me-md-4 ps-4-rtl rtl-change-icon accordion-icon-title"
+                          >{{ room?.area }} {{'M2' | translate}}</span
                         >
                         <span
                           *ngIf="room?.direction"
-                          class="icon icon__surface font-sfpro-500 font-12 ps-4 pe-5 me-4"
-                          >{{"EXPOSITION" | translate }} {{ room?.direction }}</span
+                          class="icon icon__surface font-sfpro-500 font-12 ps-4 mt-1 mt-sm-0 mb-0 pe-5 me-2 me-md-4 ps-4-rtl rtl-change-icon accordion-icon-title"
+                          >{{ "EXPOSITION" | translate }}
+                          {{ room?.direction! | uppercase | translate }}</span
                         >
                       </div>
                     </ng-template>
                     <ng-template ngbPanelContent>
-                      <div class="row ">
+                      <div class="row">
                         <div class="col-12 col-md-4">
                           <img
                             class="border-radius-8 h-100"
                             [src]="apiLink + room?.mainPhoto || ''"
-                            style="object-fit: cover;"
+                            style="object-fit: cover"
                             default="/assets/img/products/detail2.png"
                             alt=""
                           />
                         </div>
                         <div class="col-12 col-md-8 d-flex flex-column">
-                          <h3 class="font-sfpro-500 font-14 mb-3">
-                            {{'PIECE_EQUIPEMENTS' | translate}} :
+                          <h3 class="font-sfpro-500 font-14 mb-3 mt-3 mt-md-0">
+                            {{ "PIECE_EQUIPEMENTS" | translate }} :
                           </h3>
-                          <span *ngIf="!room?.equipements || room?.equipements?.length == 0">-</span>
-                          <div class="row g-3" *ngIf="room?.equipements && room?.equipements!.length > 0">
-                            <div class="col-12 col-md-6" *ngFor="let equi of room?.equipements">
+                          <span
+                            *ngIf="
+                              !room?.equipements ||
+                              room?.equipements?.length == 0
+                            "
+                            >-</span
+                          >
+                          <div
+                            class="row g-3"
+                            *ngIf="
+                              room?.equipements &&
+                              (room?.equipements)!.length > 0
+                            "
+                          >
+                            <div
+                              class="col-12 col-md-6"
+                              *ngFor="let equi of room?.equipements"
+                            >
                               <div
                                 class="d-flex flex-grow-1 w-100 bg-grey p-3 border-radius-8 flex-column h-100"
-                                style="min-height: 150px;"
+                                style="min-height: 150px"
                               >
                                 <div class="d-flex justify-content-between">
-                                  <strong class="font-sfpro-500 font-14"
-                                    >{{equi?.name}}</strong
+                                  <strong
+                                    class="font-sfpro-500 font-14"
+                                    *ngIf="equi && equi['name_' + usingLang]"
+                                  >
+                                    {{
+                                      equi
+                                        ? (equi["name_" + usingLang]
+                                          | uppercase)
+                                        : ""
+                                    }}</strong
                                   >
                                   <span
-                                  *ngIf="equi?.area"
-                                    class="icon icon__surface font-sfpro-500 font-12 ps-4"
-                                    >{{equi?.area}} m2</span
+                                    *ngIf="equi?.area"
+                                    class="icon icon__surface font-sfpro-500 font-12 ps-4 ps-4-rtl rtl-change-icon"
+                                    >{{ equi?.area }} {{'M2' | translate}}</span
                                   >
                                 </div>
-                                <small class="mt-3" style="line-height : 1rem">{{equi?.description}}</small>
+                                <small
+                                  class="mt-3"
+                                  style="line-height: 1rem"
+                                  *ngIf="
+                                    equi && equi['description_' + usingLang]
+                                  "
+                                  >{{
+                                    equi
+                                      ? (equi["description_" + usingLang]
+                                        | uppercase)
+                                      : ""
+                                  }}</small
+                                >
                               </div>
                             </div>
                           </div>
@@ -401,7 +480,7 @@
             </ng-template>
           </li>
           <li [ngbNavItem]="2" *ngIf="projectUnit?.video" [style]="{ flex: 1 }">
-            <a ngbNavLink>{{'VIDEO' | translate}}</a>
+            <a ngbNavLink>{{ "VIDEO" | translate }}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -414,7 +493,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                    {{'PROJECT_VIDEO' | translate}}
+                      {{ "PROJECT_VIDEO" | translate }}
                     </h2>
                   </div>
                   <ul
@@ -442,7 +521,7 @@
             [style]="{ flex: 1 }"
             *ngIf="projectUnit?.photos && (projectUnit?.photos)!.length > 0"
           >
-            <a ngbNavLink>{{'PHOTOS' | translate}}</a>
+            <a ngbNavLink>{{ "PHOTOS" | translate }}</a>
             <ng-template ngbNavContent>
               <div
                 class="bg-white m-auto p-4 border-radius-8 tabsContent__component"
@@ -455,7 +534,7 @@
                     <h2
                       class="color-default font-poppins-400 font-16 text-capitalize"
                     >
-                    {{'PROJECT_PHOTOS' | translate}}
+                      {{ "PROJECT_PHOTOS" | translate }}
                     </h2>
                     <div class="d-flex justify-content-between switch-display">
                       <button
@@ -514,7 +593,7 @@
   [hasAction]="false"
 ></app-empty-state-v2>
 <app-empty-state-v2
-  *ngIf="project && !projectUnit !loading"
+  *ngIf="project && !projectUnit!; loading"
   [mainClass]="'wrapperProjects'"
   [secondClass]="'wrapperProjects__new'"
   [title]="'PROPERTIES' | translate"

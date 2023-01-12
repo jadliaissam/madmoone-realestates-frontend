@@ -10,8 +10,8 @@ export const icon = L.icon({
 });
 
 
-export async function loadMap(map: any, zoomControls = true, mapID='map') {
-  map = L.map(mapID, {
+export async function loadMap(zoomControls = true, mapID='map') {
+  const map = L.map(mapID, {
     center: [31.794525, -7.0849336],
     zoom: 15,
     // boxZoom: true,

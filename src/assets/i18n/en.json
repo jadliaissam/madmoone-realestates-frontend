@@ -1,6 +1,7 @@
 {
     "ENGLISH": "English",
     "FRENCH": "French",
+    "ARABIC": "Arabic",
     "OTHERS_PHOTOS" : "Other photos",
     "HOME" : "Welcome",
     "PHOTOS" : "Photos",
@@ -14,7 +15,7 @@
     "OFFICES_IN_THIS_PROJECT" : "Offices in this project",
     "FROM" : "From",
     "CHARACTERISTICS_OF_THE_PROPERTY" : "Property characteristics",
-    "BALCONY" : "Balcony",
+    "BALCONY" : "balconies",
     "ROOMS" : "Bedrooms",
     "SALON" : "Salons",
     "BATHROOM" : "Bathrooms",
@@ -23,6 +24,7 @@
     "CAR_PARK" : "Parking",
     "SEE_MORE_DETAILS" : "See more details",
     "PROJECTS" : "Projects",
+    "PROJECT" : "Project",
     "NO_PROJECT_FOUND" : "No project found",
     "APPARTEMENT" : "Apartment",
     "OFFICE" : "Office",
@@ -31,5 +33,13 @@
     "PIECE_EQUIPEMENTS" : "Piece equipments",
     "EXPOSITION" : "Exposition",
     "PROPERTIES" : "Properties",
-    "NO_PROPERTY_FOUND" : "No property found"
+    "NO_PROPERTY_FOUND" : "No property found",
+    "NORTH": "North",
+    "SOUTH": "South",
+    "EAST" : "East",
+    "WEST": "West",
+    "NO_DESCRIPTION": "No description",
+    "CLOSE": "Close",
+    "M2": "m²"
+
 }

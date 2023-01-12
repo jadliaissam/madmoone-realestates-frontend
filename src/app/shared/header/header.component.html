@@ -1,7 +1,13 @@
 <header class="header">
-    <div class="main">
-      <div class="header__logo"><img src="/assets/img/logo.svg" alt="madmoone" /></div>
-      <!-- <nav class="header__center">
+  <div class="main">
+    <div class="header__logo">
+      <img
+      [src]="'/assets/img/logo_hills_garden_'+selectedLanguage+'.png'"
+        default="/assets/img/logo_hills_garden_fr.png"
+        alt="madmoone"
+      />
+    </div>
+    <!-- <nav class="header__center">
         <ul>
           <li>
             <a href="#"
@@ -48,15 +54,15 @@
           </li>
         </ul>
       </nav> -->
-      <div class="header__right d-flex align-items-center">
-        <div class="language">
-          <!-- <select class="selectBox" style="display: none">
+    <div class="header__right d-flex align-items-center">
+      <div class="language">
+        <!-- <select class="selectBox" style="display: none">
             <option value="1" selected="selected">FR</option>
             <option value="2">EN</option>
           </select> -->
-          <ng-select
+        <ng-select
           [items]="languages"
-          (change)=changeLanguage()
+          (change)="changeLanguage()"
           [clearable]="false"
           [searchable]="false"
           bindValue="code"
@@ -64,23 +70,20 @@
           class="select-language"
           placeholder="la langue"
         >
-        <!-- add icon and name for label and option -->
-        <ng-template ng-label-tmp ng-option-tmp let-item="item">
-          <div class="d-flex align-items-center justify-content-center">
-            <img
-              [src]="item.icon"
-              class="me-2 flag-img"
-            />
-            {{item.name | translate}}
-          </div>
-        </ng-template>
+          <!-- add icon and name for label and option -->
+          <ng-template ng-label-tmp ng-option-tmp let-item="item">
+            <div class="d-flex align-items-center justify-content-center">
+              <img [src]="item.icon" class="mx-2 flag-img" />
+              <span class="d-none d-sm-inline">{{ item.name | translate }}</span>
+            </div>
+          </ng-template>
         </ng-select>
-        </div>
-        <div class="menuBurger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+      </div>
+      <div class="menuBurger">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-  </header>
+  </div>
+</header>

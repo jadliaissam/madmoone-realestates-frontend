@@ -10,7 +10,8 @@ import { IProjectEquipement, IRoomEquipement } from 'src/app/entities/all.entity
 export class EquipementModalComponent implements OnInit {
 
   // input equipement
-  equipement: IProjectEquipement | IRoomEquipement | null = null;
+  equipement: IProjectEquipement | IRoomEquipement | any | null = null;
+  usingLang : string | null = null;
   constructor(
     public activeModal: NgbActiveModal
   ) { }
