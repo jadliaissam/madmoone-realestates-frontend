@@ -37,7 +37,3 @@ export const LAYER = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z=
 export function getApiBaseUrl() {
   return environment.apiBaseUrl;
 }
-
-export function getApiMediaUrl() {
-  return environment.apiMediaUrl;
-}

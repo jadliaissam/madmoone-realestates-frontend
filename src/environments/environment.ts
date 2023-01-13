@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:3000/',
-  apiMediaUrl: 'http://localhost:3000/uploads/',
+  apiBaseUrl: process.env['API_BASE_URL'] || 'http://localhost:3000/',
   // apiBaseUrl: 'http://172.20.10.3:3000/',
   // apiMediaUrl: 'http://172.20.10.3:3000/uploads/',
 };
