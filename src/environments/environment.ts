@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:3000/',
-  apiMediaUrl: 'http://localhost:3000/uploads/',
+  // apiBaseUrl: 'http://localhost:3000/',
+  // apiMediaUrl: 'http://localhost:3000/uploads/',
+  apiBaseUrl: 'http://192.168.1.103:3000/',
+  apiMediaUrl: 'http://192.168.1.103:3000/uploads/',
 };
 
 /*
