@@ -3760,7 +3760,7 @@
   .contentWithParts .right-part__wrapper--tabsContent .tabsContent__component {
     width: 75%;
   }
-  @media screen and (max-width: 640px) {
+  @media screen and (max-width: 767px) {
     .contentWithParts .right-part__wrapper--tabsContent .tabsContent__component {
       width: 100%;
     }

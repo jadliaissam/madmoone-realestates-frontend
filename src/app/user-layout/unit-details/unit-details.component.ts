@@ -53,6 +53,7 @@ export class UnitDetailsComponent implements OnInit, OnDestroy {
       this.horizontalViewMode = false;
     }else{
       this.muchPicturesToShow = 7;
+      this.horizontalViewMode = true;
     }
     
   }

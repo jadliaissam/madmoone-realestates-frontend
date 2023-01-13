@@ -78,6 +78,7 @@ export class ProjectDetailComponent
       this.horizontalViewMode = false;
     }else{
       this.muchPicturesToShow = 7;
+      this.horizontalViewMode = true;
     }
     
   }
