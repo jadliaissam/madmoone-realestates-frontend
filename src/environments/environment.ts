@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: process.env['API_BASE_URL'] || 'http://localhost:3000/',
+  apiBaseUrl: 'https://realestatesbackend-production.up.railway.app/',
   // apiBaseUrl: 'http://172.20.10.3:3000/',
   // apiMediaUrl: 'http://172.20.10.3:3000/uploads/',
 };

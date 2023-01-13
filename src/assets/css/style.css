@@ -7197,7 +7197,7 @@
     padding-bottom: 3.3125rem;
     background: #ffffff;
   }
-  .emptySearch:after {
+  /* .emptySearch:after {
     content: "";
     background: url("../img/products/empty_search.png") no-repeat scroll;
     width: 7.5rem;
@@ -7206,7 +7206,7 @@
     left: 50%;
     transform: translateX(-50%);
     top: 3.3125rem;
-  }
+  } */
   
   .equipments__list .icon__piscine:after,
   .equipments__list .icon__restaurant:after,
